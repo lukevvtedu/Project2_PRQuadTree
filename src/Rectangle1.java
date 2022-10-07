@@ -1,32 +1,27 @@
-import student.TestCase;
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// -- oehlingr19 and lukev
 
 /**
- * Tests the rectangle class
  * 
- * @author oehlingr19
- * @version 2
+ * @author oehlingr19 and lukev
+ * @version 1
+ *          This function is the main function thats runs the code.
  */
-public class RectangleTest extends TestCase {
+public class Rectangle1 {
     /**
-     * Sets up the test file (left blank intentionally)
+     * main function to run the code
+     * 
+     * @param args
+     *            Name of the command given through the arguments of the
+     *            system run file
+     * 
      */
-    public void setUp() {
-
-    }
-
-
-    /**
-     * Tests the equal function
-     */
-    public void testEquals() {
-        Rectangle r1 = new Rectangle("a", 1, 2, 3, 4);
-        Rectangle r2 = new Rectangle("b", 1, 2, 3, 4);
-        Rectangle r3 = new Rectangle("c", 1, 3, 3, 4);
-        assertTrue(r1.equals(r1));
-        assertTrue(r1.equals(r2));
-        assertFalse(r1.equals(r3));
-        assertTrue(r1.equals(new Rectangle("a", 1, 2, 3, 4)));
-        assertFalse(r1.equals(new Rectangle("a", 1, 1, 3, 4)));
-        assertTrue(r1.equals(new Rectangle("b", 1, 2, 3, 4)));
+    public static void main(String[] args) {
+        CommandFile cmd = new CommandFile(args[0]);
+        cmd.run();
     }
 }

@@ -4,7 +4,7 @@ import java.io.File;
 /**
  * The default class for reading and running the commands from a text file
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 2
  *
  */
@@ -26,6 +26,7 @@ public class CommandFile {
 
     /**
      * Main function for running the given commands from the text file
+     * 
      * @return true if file is found, false otherwise
      */
     public boolean run() {

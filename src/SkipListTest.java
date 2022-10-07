@@ -3,16 +3,16 @@ import student.TestCase;
 /**
  * Test used for the SkipList
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 1
  *
  */
 public class SkipListTest extends TestCase {
-    
+
     private SkipList<String, Integer> sl;
     private KVPair<String, Integer> kv1;
     private KVPair<String, Integer> kv2;
-    
+
     /**
      * Sets up the test file (left blank intentionally)
      */
@@ -22,6 +22,7 @@ public class SkipListTest extends TestCase {
         kv2 = new KVPair<String, Integer>("b", 2);
     }
 
+
     /**
      * tests the insert method
      */
@@ -29,5 +30,5 @@ public class SkipListTest extends TestCase {
         assertTrue(sl.insert(kv1.key(), kv1.value()));
         assertTrue(sl.insert(kv2.key(), kv2.value()));
     }
-    
+
 }

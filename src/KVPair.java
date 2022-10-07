@@ -2,7 +2,7 @@
 // KVPair class definition
 /**
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 1.0
  *
  * @param <K>

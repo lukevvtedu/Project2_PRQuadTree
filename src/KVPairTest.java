@@ -2,7 +2,8 @@ import student.TestCase;
 
 /**
  * tests the KVPair class
- * @author oehlingr19
+ * 
+ * @author oehlingr19 and lukev
  * @version 1
  */
 public class KVPairTest extends TestCase {

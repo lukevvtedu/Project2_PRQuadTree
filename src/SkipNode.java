@@ -2,7 +2,7 @@
 /**
  * Default SkipNode class
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 1
  *
  * @param <K>

@@ -5,7 +5,7 @@ import student.TestableRandom;
 /**
  * The SkipList class create a SkipList data structure
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 1
  *
  * @param <K>

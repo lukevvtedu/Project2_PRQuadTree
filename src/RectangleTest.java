@@ -3,7 +3,7 @@ import student.TestCase;
 /**
  * Tests the rectangle class
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 2
  */
 public class RectangleTest extends TestCase {

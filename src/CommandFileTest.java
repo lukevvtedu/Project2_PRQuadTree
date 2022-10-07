@@ -3,7 +3,7 @@ import student.TestCase;
 /**
  * Tests the Command File class
  * 
- * @author oehlingr19
+ * @author oehlingr19 and lukev
  * @version 1
  */
 public class CommandFileTest extends TestCase {
