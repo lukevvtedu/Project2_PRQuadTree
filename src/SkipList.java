@@ -13,284 +13,282 @@ import student.TestableRandom;
  * @param <E>
  *            The given element from the input
  */
-public class SkipList<K extends Comparable<K>, E> {
-
-    static private Random rnd = new Random(); // Random number generator
-    private SkipNode<K, E> head; // Private member of the SkipList object
-    private int level; // Where the deepest node is in the SkipList
-    private int size; // The total number of items in the SkipList
+public class SkipList<K extends Comparable<K>, E>
+{
+    /**
+     * head node
+     */
+    private SkipNode<K, E> head;
 
     /**
-     * Default SkipList constructor
+     * number of nodes in the list
      */
-    public SkipList() {
-        rnd = new TestableRandom();
-        head = new SkipNode<K, E>(null, null, 0);
-        level = -1;
+    private int            size;
+    /**
+     * level of the head
+     */
+    private int            level;
+
+    /**
+     * creates a new skip list
+     */
+    public SkipList()
+    {
+        head = new SkipNode<K, E>(null, 1);
+        level = 0;
         size = 0;
     }
 
-
     /**
-     * Pick a level using a geometric distribution
+     * retrieves the head of the list
      * 
-     * @return random level of depth
+     * @return the head of the list
      */
-    public int randomLevel() {
-        int lev;
-        for (lev = 0; rnd.nextBoolean(); lev++) {
-            // Left intentionally blank
-        }
-        return lev;
+    public SkipNode<K, E> getHead()
+    {
+        return head;
     }
 
-
     /**
-     * Moves the head of the SkipList
+     * fixes the head to make sure that it represents the new largest number of
+     * levels
      * 
      * @param newLevel
-     *            depth of the head
+     *            is the new largest levels
      */
-    private void adjustHead(int newLevel) {
-        SkipNode<K, E> temp = head;
-        head = new SkipNode<K, E>(null, null, newLevel);
-        for (int i = 0; i <= level; i++) {
-            head.getForward()[i] = temp.getForward()[i];
+    private void fixHead(int newLevel)
+    {
+        SkipNode<K, E> oldHead = head;
+        head = new SkipNode<K, E>(null, newLevel);
+        for (int i = 0; i <= level; i++)
+        {
+            head.next[i] = oldHead.next[i];
         }
         level = newLevel;
+
     }
 
+    /**
+     * flips a "coin" to generate a random level for the nodes to be added.
+     *
+     * @return picked random level
+     */
+    private int pickRandomLevel()
+    {
+        int leveler = 0;
+        Random random = new TestableRandom();
+        while (random.nextBoolean())
+        {
+            leveler++;
+        }
+        return leveler;
+    }
 
     /**
-     * Inserts a key and element into the skiplist
-     * **Adjusted from the OpenDSA**
+     * inserts a node in a sorted order. based on given code from canvas
      * 
-     * @param k
-     *            key of the given input
-     * @param e
-     *            element of the given input
-     * @return true to get output
+     * @param newPair
+     *            is the pair to be inserted
+     * @return whether iteration succeeded
      */
-    public boolean insert(K k, E e) {
-        int newLevel = randomLevel();
-        if (level < newLevel) {
-            adjustHead(newLevel);
+    @SuppressWarnings("unchecked")
+    public boolean insert(KVPair<K, E> newPair)
+    {
+        int newLevel = pickRandomLevel();
+        Comparable<K> key = newPair.key();
+        if (level < newLevel)
+        {
+            fixHead(newLevel);
         }
-        @SuppressWarnings("unchecked") // Generic array allocation
-        SkipNode<K, E>[] update = (SkipNode<K, E>[])Array.newInstance(
-            SkipNode.class, level + 1);
-        SkipNode<K, E> x = head; // Start at header node
-        for (int i = level; i >= 0; i--) { // Find insert position
-            while ((x.getForward()[i] != null) && (k.compareTo(x.getForward()[i]
-                .key()) > 0)) {
-                x = x.getForward()[i];
+        SkipNode<K, E>[] update = (SkipNode[]) Array
+                .newInstance(SkipNode.class, level + 1);
+        SkipNode<K, E> curr = head;
+        for (int i = level; i >= 0; i--)
+        {
+            while ((curr.next[i] != null)
+                    && (key.compareTo((curr.next[i]).getPair().key()) > 0))
+            {
+                curr = curr.next[i];
             }
-            update[i] = x; // Track end at level i
+            update[i] = curr;
         }
-        x = new SkipNode<K, E>(k, e, newLevel);
-        for (int i = 0; i <= newLevel; i++) { // Splice into list
-            x.getForward()[i] = update[i].getForward()[i]; // Who x points to
-            update[i].getForward()[i] = x; // Who y points to
+        curr = new SkipNode<K, E>(newPair, newLevel);
+        for (int i = 0; i <= newLevel; i++)
+        {
+            curr.next[i] = update[i].next[i];
+            update[i].next[i] = curr;
         }
-        size++; // Increment dictionary size
+        size++;
         return true;
     }
 
-
     /**
-     * Removes a node from the SkipList base on its key value
+     * Locates a value at a point in the array, moves pointers from its previous
+     * nodes to the nodes following to "delete" the node for the garbage
+     * collector to clean
      * 
-     * @param k
-     *            key that is being parsed to remove node
-     * @return The removed node, null if non-existent
+     * @param key
+     *            the searched for key
+     * @return located value if found, if not, null
      */
-    public SkipNode<K, E> remove(K k) {
-        SkipNode<K, E> x = head;
-        SkipNode<K, E> search = search(k);
-        int lev = x.getForward().length - 1;
-        if (search == null) {
-            return search;
-        }
-        SkipNode<K, E>[] newSearch = search.getForward();
-        while (x != null) {
-            for (int i = lev; i >= 0; i--) {
-                i = lev;
-                if (x == null) {
+    public E removeKey(K key)
+    {
+        SkipNode<K, E> current = head;
+        E located = null;
+        for (int i = level; i >= 0; i--)
+        {
+            while (current.next[i] != null)
+            {
+                if (current.next[i].getKey().compareTo(key) == 0)
+                {
+                    located = current.next[i].getValue();
+                    current.next[i] = current.next[i].next[i];
                     break;
                 }
-                SkipNode<K, E> xFor = x.getForward()[i];
-                if (xFor != null) {
-                    if (xFor == search) {
-                        xFor = newSearch[i];
-                    }
+                if (current.next[i].getKey().compareTo(key) > 0)
+                {
+                    break;
                 }
-                x = x.getForward()[0];
-                if (x != null) {
-                    lev = x.getForward().length - 1;
-                }
+                current = current.next[i];
             }
         }
-        size--;
-        return search;
+        if (located != null)
+        {
+            size--;
+        }
+        return located;
     }
 
-
     /**
-     * Removes a node by its element
+     * Scrolls along the bottom level of the list until the loop hits a value
+     * that is the same as the searched for value. Then uses removeKey(key of
+     * value) to delete the node from the SkipList
+     * NO LONGER NECESSARY WITH QUADTREE
      * 
-     * @param e
-     *            the element being parsed to remove a node
-     * @return The removed node, null if non-existent
+     * @param value
+     *            the searched for value
+     * @return located value if found, if not, null
      */
-    public SkipNode<K, E> remove(E e) {
-        SkipNode<K, E> x = head;
-        SkipNode<K, E> search = search(e);
-        if (search == null) {
-            return search;
-        }
-        SkipNode<K, E>[] newSearch = search.getForward();
-        int lev = x.getForward().length - 1;
-        while (x != null) {
-            for (int i = lev; i > -1; i--) {
-                if (x.getForward()[i] != null) {
-                    if ((x.getForward()[i] == search)) {
-                        x.getForward()[i] = newSearch[i];
-                    }
-                }
+    /**public E removeValue(E value)
+    {
+        SkipNode<K, E> current = head;
+        while (current.next[0] != null)
+        {
+            if (current.next[0].getValue().equals(value))
+            {
+                return removeKey(current.next[0].getKey());
             }
-            x = x.getForward()[0];
-            if (x != null) {
-                lev = x.getForward().length - 1;
-            }
-        }
-        size--;
-        return search;
-    }
-
-
-    /**
-     * Search for a node based on its key value
-     * 
-     * @param k
-     *            the key being parsed to find the node
-     * @return The found node, null if non-existent
-     */
-    private SkipNode<K, E> search(K k) {
-        SkipNode<K, E> x = head;
-        for (int i = level; i > -1; i--) {
-            while ((x.getForward()[i] != null) && (x.getForward()[i].key()
-                .compareTo(k) < 0)) {
-                x = x.getForward()[i];
-            }
-        }
-        x = x.getForward()[0];
-        if ((x != null) && (x.key().compareTo(x.key()) == 0)) {
-            return x;
-        }
-        else {
-            return null;
-        }
-    }
-
-
-    /**
-     * Finds a node based on its element
-     * 
-     * @param e
-     *            the element being parsed to find the node
-     * @return The found node, null if non-existent
-     */
-    private SkipNode<K, E> search(E e) {
-        SkipNode<K, E> x = head;
-        int lev = level;
-        if (x.getForward().length != 1) {
-            while (x != null) {
-                for (int i = lev; i > -1; i--) {
-                    if (x.getForward()[i] != null) {
-                        if (e.equals(x.getForward()[i].element())) {
-                            x = x.getForward()[i];
-                            return x;
-                        }
-                    }
-                }
-                x = x.getForward()[0];
-                if (x != null) {
-                    lev = x.getForward().length - 1;
-                }
-            }
-        }
-        else {
-            while (x != null) {
-                if (x.getForward()[0] == null) {
-                    return null;
-                }
-                if (e.equals(x.getForward()[0].element())) {
-                    x = x.getForward()[0];
-                    return x;
-                }
-                x = x.getForward()[0];
-            }
+            current = current.next[0];
         }
         return null;
-    }
-
-
-    /**
-     * Creates a list of all nodes
-     * 
-     * @return All found nodes within the SkipList
-     */
-    public SkipNode<K, E>[] dump() {
-        SkipNode<K, E> x = head;
-        @SuppressWarnings("unchecked")
-        SkipNode<K, E>[] dump = new SkipNode[1];
-        int dumpLength = 0;
-        while (x != null) {
-            if (dumpLength == 0) {
-                dump[0] = new SkipNode<K, E>(x.key(), x.element(), x
-                    .getForward().length);
-                dumpLength++;
-            }
-            else {
-                @SuppressWarnings("unchecked")
-                SkipNode<K, E>[] temp = new SkipNode[dump.length + 1];
-                System.arraycopy(dump, 0, temp, 0, dump.length);
-                temp[temp.length - 1] = new SkipNode<K, E>(x.key(), x.element(),
-                    x.getForward().length);
-                dump = temp;
-            }
-            x = x.getForward()[0];
-        }
-        return dump;
-    }
-
+    }*/
 
     /**
-     * Searches for all KVPairs within the SkipList given a key
+     * finds a specific node given a key value using a while loop to discover
+     * the specific node.
      * 
-     * @param k
-     *            the key being parsed to find all KVPairs
-     * @return The found KVPairs
+     * @param key
+     *            the key that is being searched for
+     * @return the node that contains a specific key
      */
-    public SkipNode<K, E>[] find(K k) {
-        SkipNode<K, E> x = head;
-        @SuppressWarnings("unchecked")
-        SkipNode<K, E>[] found = new SkipNode[1];
-        int lev = level;
-        for (int i = lev; i >= 0; i--) {
-            while ((x.getForward()[i] != null) && (x.getForward()[i].key()
-                .compareTo(k) < 0))
-                x = x.getForward()[i];
+    public SkipNode<K, E> search(K key)
+    {
+        SkipNode<K, E> current = head;
+        for (int i = level; 0 <= i; i--)
+        {
+            while (current.next[i] != null
+                    && key.compareTo(current.next[i].getKey()) > 0)
+            {
+                current = current.next[i];
+            }
         }
-        x = x.getForward()[0];
-        if ((x != null) && (x.key().compareTo(x.key()) == 0)) {
-            @SuppressWarnings("unchecked")
-            SkipNode<K, E>[] temp = new SkipNode[found.length + 1];
-            System.arraycopy(found, 0, temp, 0, found.length);
-            temp[temp.length - 1] = new SkipNode<K, E>(k, x.element(), 0);
-            found = temp;
-            lev = x.getForward().length - 1;
+        current = current.next[0];
+        if (current == null || key.compareTo(current.getKey()) != 0)
+        {
+            return null;
         }
-        return found;
+        return current;
+    }
+
+    /**
+     * output a list of every item in the list in the following format:
+     * "Node has depth 0, Value (0)"
+     */
+    public void dump()
+    {
+        System.out.println("SkipList dump:");
+        SkipNode<K, E> current = head;
+        while (current != null)
+        {
+            String name = "";
+            if (current.getValue() == null)
+            {
+                name = "(null)";
+            }
+            else
+            {
+                name = current.getPair().value().toString();
+            }
+            System.out.println("Node has depth " + current.getLevel()
+                    + ", Value " + name);
+
+            current = current.next[0];
+        }
+        System.out.println("SkipList size is: " + size);
+    }
+
+    /**
+     * checks through the SkipList for intersections between rectangles forced
+     * to use Casting to check for intersections
+     * 
+     * @return whether or not an intersection was found
+     */
+    public boolean intersections()
+    {
+        boolean foundIntersect = false;
+        SkipNode<K, E> current = head.next[0];
+        for (int i = 0; i < size; i++)
+        {
+            SkipNode<K, E> check = head.next[0];
+            for (int j = 0; j < size; j++)
+            {
+                if (i != j)
+                {
+                    if (((Rectangle) current.getValue())
+                            .intersects(((Rectangle) check.getValue())))
+                    {
+                        System.out.println(current.getPair().toString()
+                                + " | " + check.getPair().toString());
+                        foundIntersect = true;
+                    }
+                }
+                check = check.next[0];
+            }
+            current = current.next[0];
+        }
+        return foundIntersect;
+    }
+
+    /**
+     * checks the SkipList for all rectangles intersecting a certain region.
+     * 
+     * @param region
+     *            KVPair that contains the rectangle for the intersecting region
+     * @return whether or not a rectangle was found in the region
+     */
+    public boolean regionSearch(Rectangle region)
+    {
+        boolean inRegion = false;
+        SkipNode<K, E> current = head.next[0];
+        for (int i = 0; i < size; i++)
+        {
+            if (((Rectangle) current.getValue()).intersects(region))
+            {
+                System.out.println(current.getPair().toString());
+                inRegion = true;
+            }
+            current = current.next[0];
+        }
+        return inRegion;
     }
 }

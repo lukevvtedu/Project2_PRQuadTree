@@ -6,114 +6,195 @@
  *          creates the Rectangle class
  * 
  */
-public class Rectangle {
+public class Rectangle implements Comparable<Rectangle>
+{
+    /**
+     * x coordinate of upper left corner of Rectangle
+     */
+    private int    x;
+    /**
+     * y coordinate of upper left corner of Rectangle
+     */
+    private int    y;
+    /**
+     * horizontal length of Rectangle; the difference between the x coordinate
+     * of the right corner and x coordinate of left corner
+     */
+    private int    width;
+    /**
+     * vertical length of Rectangle; the difference between the x coordinate of
+     * the right corner and x coordinate of left corner
+     */
+    private int    height;
 
-    private int rx;
-    private int ry;
-    private int rw;
-    private int rh;
+    /**
+     * holds the name of the rectangle
+     */
     private String name;
 
     /**
-     * Default constructor for rectangle objects
+     * standard constructor for Rectangle; sets up the position and size
      * 
-     * @param name
-     *            The name of the rectangle
-     * @param x
-     *            The x Position of the rectangle
-     * @param y
-     *            The y Position of the rectangle
-     * @param w
-     *            The width of the rectangle
-     * @param h
-     *            The height of the rectangle
+     * @param newName
+     *            the name fo the rectangle given from the scanner
+     * @param newX
+     *            x coordinate of upper left corner
+     * @param newY
+     *            y coordinate of upper left corner
+     * @param newWidth
+     *            horizontal length of Rectangle
+     * @param newHeight
+     *            vertical length of Rectangle
+     * 
+     * @precondition width and height are greater than 0
+     * @precondition x and y coordinate are greater than or equal to 0
+     * @precondition x + width is less than 1024
+     * @precondition y + height is less than 1024
      */
-    public Rectangle(String name, int x, int y, int w, int h) {
-        this.rx = x;
-        this.ry = y;
-        this.rh = h;
-        this.rw = w;
-        this.name = name;
+    public Rectangle(String newName, int newX, int newY, int newWidth,
+            int newHeight)
+    {
+        name = newName;
+        x = newX;
+        y = newY;
+        width = newWidth;
+        height = newHeight;
     }
 
-
     /**
-     * getter function for names
+     * access to x coordinate
      * 
-     * @return the name
+     * @return x coordinate
      */
-    public String getName() {
-        return this.name;
+    public int getX()
+    {
+        return x;
     }
 
-
     /**
-     * getter function for x position
+     * access to y coordinate
      * 
-     * @return x position
+     * @return y coordinate
      */
-    public int xPos() {
-        return this.rx;
+    public int getY()
+    {
+        return y;
     }
 
-
     /**
-     * getter function for y position
+     * access to width
      * 
-     * @return y position
+     * @return horizontal length
      */
-    public int yPos() {
-        return this.ry;
+    public int getWidth()
+    {
+        return width;
     }
 
-
     /**
-     * getter function for width
+     * access to height
      * 
-     * @return the width
+     * @return vertical length
      */
-    public int getW() {
-        return this.rw;
+    public int getHeight()
+    {
+        return height;
     }
 
-
     /**
-     * getter function for height
+     * access to name
      * 
-     * @return the height
+     * @return the name of the rectangle
      */
-    public int getH() {
-        return this.rh;
+    public String getName()
+    {
+        return name;
     }
 
-
     /**
-     * sets rectangle values to a string value
+     * outputs the 4 values to the console
      * 
-     * @return the rectangle values in a string
+     * @return the string representation of the rectangle
      */
-    public String toString() {
-        return name + ", " + rx + ", " + ry + ", " + rw + ", " + rh;
+    public String toString()
+    {
+        return x + ", " + y + ", " + width + ", " + height;
     }
 
-
     /**
-     * checker to make sure created variables are equal to real variables
+     * Comparable interface method that allows two rectangles to be compared
+     * based on their coordinates and sizes
      * 
-     * @param o
-     *            A rectangle object
-     * @return the values of a rectangle are consistent
+     * @param obj
+     *            rectangle object to compare to current
+     * @return an integer to describe if the rectangles are the same
      */
-    public boolean equals(Object o) {
-        int x = ((Rectangle)o).xPos();
-        int y = ((Rectangle)o).yPos();
-        int w = ((Rectangle)o).getW();
-        int h = ((Rectangle)o).getH();
-        if (this.rx == x && this.ry == y && this.rw == w && this.rh == h) {
-            return true;
+    public int compareTo(Rectangle obj)
+    {
+        if (this.x == obj.getX() && this.y == obj.getY()
+                && this.width == obj.getWidth()
+                && this.height == obj.getHeight())
+        {
+            return 0;
         }
-        else {
-            return false;
+        else
+        {
+            return -1;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj instanceof Rectangle)
+        {
+            Rectangle rect = (Rectangle) obj;
+            return (this.x == rect.getX() 
+                    && this.y == rect.getY()
+                    && this.width == rect.getWidth()
+                    && this.height == rect.getHeight());
+        }
+        return false;
+    }
+
+    /**
+     * determines if the given rectangle intersects with the current rectangle.
+     * does so by checking if the given rectangle could possibly NOT intersect.
+     * set of all not intersecting rectangles is much smaller than the set of
+     * all possible intersecting rectangles
+     * 
+     * @param otherRect
+     *            the second rectangle that is being checked for intersections
+     * @return true if the rectangles intersect, false if not
+     */
+    public boolean intersects(Rectangle otherRect)
+    {
+        // left edge r2 is to the right of r1
+        return !((otherRect.getX() >= this.x + this.width)
+                // right edge r2 is to the left of r1
+                || (otherRect.getX() + otherRect.getWidth() <= this.x)
+                // bottom edge r2 is above r1
+                || (otherRect.getY() + otherRect.getHeight() <= this.y)
+                // top edge r2 is below r1
+                || (otherRect.getY() >= this.y + this.height));
+    }
+
+    /**
+     * decides if a rectangle contains a certain point
+     * 
+     * @param otherPoint the point that could be within the rectangle
+     * @return if the point is within the rectang;e
+     */
+    public boolean contains(Point2 otherPoint)
+    {
+        // left edge r2 is to the right of r1
+        return !(
+                (otherPoint.getX() > this.x + this.width)
+                // right edge r2 is to the left of r1
+                || (otherPoint.getX() < this.x)
+                // bottom edge r2 is above r1
+                || (otherPoint.getY() < this.y)
+                // top edge r2 is below r1
+                || (otherPoint.getY() > this.y + this.height));
     }
 }

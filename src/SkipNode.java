@@ -10,57 +10,96 @@
  * @param <E>
  *            element of the object
  */
-class SkipNode<K extends Comparable<K>, E> {
-    private KVPair<K, E> rec;
-    private SkipNode<K, E>[] forward;
+public class SkipNode<K extends Comparable<K>, E>
+{
 
     /**
-     * getter for the element of an object
-     * 
-     * @return the element value
+     * creates a skip list node array that is blank that will point to the next
+     * node in the list
      */
-    public E element() {
-        return rec.value();
-    }
-
+    public SkipNode<K, E>[] next;
 
     /**
-     * getter for the key of an object
-     * 
-     * @return the key value
+     * Data stored into the node
      */
-    public K key() {
-        return rec.key();
-    }
-
+    private KVPair<K, E>    pair;
+    /**
+     * determines the level that the node is actually on
+     */
+    private int             level;
 
     /**
-     * Default constructor for a SkipNode object
+     * constructor to make nodes that store a KVPair
      * 
-     * @param k
-     *            key of the object
-     * @param e
-     *            element of the object
-     * @param level
-     *            depth of the node
+     * @param newPair
+     *            pair of values stored as the data in the node
+     * @param newLevel
+     *            the integer used to store the level of that node
      */
+
     @SuppressWarnings("unchecked")
-    public SkipNode(K k, E e, int level) {
-        rec = new KVPair<K, E>(k, e);
-        forward = new SkipNode[level + 1];
-        for (int i = 0; i < level; i++) {
-            forward[i] = null;
+    public SkipNode(KVPair<K, E> newPair, int newLevel)
+    {
+        level = newLevel;
+        pair = newPair;
+        next = (SkipNode<K, E>[]) new SkipNode[newLevel + 1];
+        for (int i = 0; i < level; i++)
+        {
+            next[i] = null;
         }
     }
 
+    /**
+     * =========================== getters and setters section
+     */
 
     /**
-     * finds the next node
+     * key getter
      * 
-     * @return the next node
+     * @return key of the node
      */
-    public SkipNode<K, E>[] getForward() {
-        return forward;
+    public K getKey()
+    {
+        if (pair != null)
+        {
+            return pair.key();
+        }
+        return null;
     }
 
+    /**
+     * value getter
+     * 
+     * @return value of node
+     */
+    public E getValue()
+    {
+        if (pair != null)
+        {
+            return pair.value();
+        }
+        return null;
+    }
+
+    /**
+     * level getter
+     * 
+     * @return level of the current node
+     */
+    public int getLevel()
+    {
+        return level;
+    }
+
+    /**
+     * gets the pair
+     * 
+     * @return KVPair of the node
+     */
+    public KVPair<K, E> getPair()
+    {
+        if (pair != null)
+            return pair;
+        return null;
+    }
 }

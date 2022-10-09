@@ -22,6 +22,6 @@ public class Rectangle1 {
      */
     public static void main(String[] args) {
         CommandFile cmd = new CommandFile(args[0]);
-        cmd.run();
+        cmd.parseFile();
     }
 }

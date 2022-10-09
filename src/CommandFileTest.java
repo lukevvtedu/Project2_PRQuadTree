@@ -6,54 +6,65 @@ import student.TestCase;
  * @author oehlingr19 and lukev
  * @version 1
  */
-public class CommandFileTest extends TestCase {
-    
+import student.TestCase;
+
+/**
+ * Test class to demonstrate proper use of the CommandParser
+ * 
+ * @author Jonathan DeFreeuw (jondef95), Preston Lattimer (platt)
+ * @version 2
+ */
+public class CommandFileTest extends TestCase
+{
     private CommandFile cmd;
-    /**
-     * Sets up the test file (left blank intentionally)
-     */
-    public void setUp() {
-        
-    }
-
 
     /**
-     * Main test function
+     * tests to see if the parser will correctly handle an incorrect file
      */
-    public void testSearch() {
-        cmd = new CommandFile("a");
-        boolean pass = cmd.run();
-        assertFalse(pass);
-        cmd = new CommandFile("SkipListSampleInput.txt");
-        pass = cmd.run();
-        assertTrue(pass);
+    public void testSearchFail()
+    {
+        cmd = new CommandFile("fail");
+        boolean success = cmd.parseFile();
+        assertFalse(success);
     }
-    
+
     /**
-     * tests the run function
+     * tests to see if the parser will correctly open and close a file does not
+     * test the output of the parser
      */
-    public void testRun() {
-        cmd = new CommandFile("TestRecs.txt");
-        boolean pass = cmd.run();
-        assertTrue(pass);
+    public void testSearchPass()
+    {
+        cmd = new CommandFile("P2SyntaxTest1.txt");
+        boolean success = cmd.parseFile();
+        assertTrue(success);
     }
-    
+
     /**
-     * tests the checkBounds function
+     * tests checkDim for the variety of conditions that are available
      */
-    public void testCheckBounds() {
-        cmd = new CommandFile("TestRecs.txt");
-        assertFalse(cmd.checkBounds(0, 0, 0, 0));
-        assertFalse(cmd.checkBounds(0, 0, 0, 1));
-        assertFalse(cmd.checkBounds(0, 0, 1, 0));
-        assertTrue(cmd.checkBounds(0, 0, 1, 1));
-        assertFalse(cmd.checkBounds(1024, 1024, 1024, 1024));
-        assertFalse(cmd.checkBounds(1024, 500, 1024, 1024));
-        assertFalse(cmd.checkBounds(500, 1024, 1024, 1024));
-        assertFalse(cmd.checkBounds(500, 500, 1024, 1024));
-        assertFalse(cmd.checkBounds(500, 500, 500, 1023));
-        assertFalse(cmd.checkBounds(500, 500, 1023, 500));
-        assertTrue(cmd.checkBounds(500, 500, 500, 500));
-        
+    /**
+     * public void testCheckDim() { parser = new CommandParser("test.txt");
+     * assertTrue(parser.checkDim(0, 0, 1, 1)); assertTrue(parser.checkDim(1, 1,
+     * 1, 1)); assertFalse(parser.checkDim(0, 0, 1025, 1));
+     * assertFalse(parser.checkDim(0, 0, 1, 1025));
+     * assertFalse(parser.checkDim(-1, 1, 1, 1)); assertFalse(parser.checkDim(0,
+     * -1, 1, 1)); assertFalse(parser.checkDim(-1, -1, 1, 1));
+     * assertFalse(parser.checkDim(-1, -1, -1, 1));
+     * assertFalse(parser.checkDim(-1, -1, -1, -1));
+     * assertFalse(parser.checkDim(0, 0, 0, 0)); assertFalse(parser.checkDim(0,
+     * 0, 1, 0));
+     * 
+     * }
+     */
+
+    /**
+     * tests the parsers various tests
+     */
+    public void testParseFile()
+    {
+        cmd = new CommandFile("P2SyntaxTest1.txt");
+        boolean success = cmd.parseFile();
+        assertTrue(success);
     }
+
 }

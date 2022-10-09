@@ -10,67 +10,149 @@
  * @param <E>
  *            The element of the given object
  */
+
 public class KVPair<K extends Comparable<K>, E>
-    implements Comparable<KVPair<K, E>> {
-    private K theKey;
-    private E theVal;
+        implements Comparable<KVPair<K, E>>
+{
+    /**
+     * where the key of the pair will be stored
+     */
+    K theKey;
 
     /**
-     * default KVPair constructor
+     * where the value for the pair will be stored
+     */
+    E theVal;
+
+    /**
+     * constructor for the KVPair that stored the key and value
      * 
      * @param k
-     *            Key of the object
-     * @param e
-     *            Element of the object
+     *            key to be stored
+     * @param v
+     *            value to be stored
      */
-    KVPair(K k, E e) {
+    public KVPair(K k, E v)
+    {
         theKey = k;
-        theVal = e;
+        theVal = v;
     }
 
-
     /**
-     * compares key values
+     * compares two KVPairs based on keys
      * 
      * @param it
-     *            key value being compared
-     * @return compared value
+     *            the KVPair that is being checked against this pair
+     * @return 0 if they have the same key, another integer if different
      */
-    public int compareTo(KVPair<K, E> it) {
+    public int compareTo(KVPair<K, E> it)
+    {
         return theKey.compareTo(it.key());
     }
 
-
     /**
-     * compares key values
+     * compares this KVPair's key to a given key
      * 
      * @param it
-     *            key value being compared
-     * @return compared value
+     *            the key that is being used to compare with this
+     * @return 0 if they keys are equal, another integer if different
      */
-    public int compareTo(K it) {
+    public int compareTo(K it)
+    {
         return theKey.compareTo(it);
     }
 
-
     /**
-     * getter for key
+     * returns the key from the KVPair
      * 
-     * @return key value
+     * @return key stored in pair
      */
-    public K key() {
+    public K key()
+    {
         return theKey;
     }
 
-
     /**
-     * getter for element
+     * returns the value from the KVPair
      * 
-     * @return element value
+     * @return value stored in pair
      */
-    public E value() {
+    public E value()
+    {
         return theVal;
     }
 
+    /**
+     * returns a String representation of the KVPair
+     * 
+     * @return the String values for both the key and value
+     */
+    public String toString()
+    {
+        return theKey.toString() + ", " + theVal.toString();
+    }
 }
-/* *** ODSAendTag: KVPair *** */
+//public class KVPair<K extends Comparable<K>, E>
+//    implements Comparable<KVPair<K, E>> {
+//    private K theKey;
+//    private E theVal;
+//
+//    /**
+//     * default KVPair constructor
+//     * 
+//     * @param k
+//     *            Key of the object
+//     * @param e
+//     *            Element of the object
+//     */
+//    KVPair(K k, E e) {
+//        theKey = k;
+//        theVal = e;
+//    }
+//
+//
+//    /**
+//     * compares key values
+//     * 
+//     * @param it
+//     *            key value being compared
+//     * @return compared value
+//     */
+//    public int compareTo(KVPair<K, E> it) {
+//        return theKey.compareTo(it.key());
+//    }
+//
+//
+//    /**
+//     * compares key values
+//     * 
+//     * @param it
+//     *            key value being compared
+//     * @return compared value
+//     */
+//    public int compareTo(K it) {
+//        return theKey.compareTo(it);
+//    }
+//
+//
+//    /**
+//     * getter for key
+//     * 
+//     * @return key value
+//     */
+//    public K key() {
+//        return theKey;
+//    }
+//
+//
+//    /**
+//     * getter for element
+//     * 
+//     * @return element value
+//     */
+//    public E value() {
+//        return theVal;
+//    }
+//
+//}
+///* *** ODSAendTag: KVPair *** */

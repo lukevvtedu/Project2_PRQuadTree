@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="D:/Eclipse Workspace/student.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lukec/Downloads/student.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
