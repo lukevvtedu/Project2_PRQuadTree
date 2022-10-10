@@ -10,7 +10,7 @@ public class PointNode
     /**
      * next node in the list
      */
-    private PointNode next;
+    private PointNode nextPenis;
     /**
      * point data contained in the node
      */
