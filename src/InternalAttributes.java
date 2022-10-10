@@ -67,7 +67,7 @@ public class InternalAttributes implements PRNode
      * @return the root of the subtree that is changed after insert
      */
     @Override
-    public PRNode insert(int x, int y, int width, Point2 newPoint)
+    public PRNode insert(int x, int y, int width, Point1 newPoint)
     {
         if (newPoint.getX() < x + width / 2)
             if (newPoint.getY() < y + width / 2)
@@ -113,10 +113,10 @@ public class InternalAttributes implements PRNode
      * @param byName tells whether to remove by specific name or not
      * @return the point that was removed
      */
-    public Point2 remove(int x, int y, int width, Point2 searchPoint,
+    public Point1 remove(int x, int y, int width, Point1 searchPoint,
             boolean byName)
     {
-        Point2 foundPoint = null;
+        Point1 foundPoint = null;
         if (searchPoint.getX() < x + width / 2)
             if (searchPoint.getY() < y + width / 2)
             {

@@ -113,8 +113,8 @@ public class CommandFile
         char c = name.charAt(0);
         if (checkDim(x, y) && Character.isAlphabetic(c))
         {
-            Point2 point = new Point2(name, x, y);
-            KVPair<String, Point2> pair = new KVPair<String, Point2>(name,
+            Point1 point = new Point1(name, x, y);
+            KVPair<String, Point1> pair = new KVPair<String, Point1>(name,
                     point);
             storage.insert(pair);
             System.out.println("Point inserted: (" + name + ", " + x + ", "
@@ -139,7 +139,7 @@ public class CommandFile
         String name = scanner.next();
         if (!isNumeric(name))
         {
-            Point2 found = storage.removeKey(name);
+            Point1 found = storage.removeKey(name);
             if (found == null)
                 System.out.println("Point not removed: " + name);
             else
@@ -151,8 +151,8 @@ public class CommandFile
             int y = scanner.nextInt();
             if (checkDim(x, y))
             {
-                Point2 searchPoint = new Point2(null, x, y);
-                Point2 found = storage.removeValue(searchPoint);
+                Point1 searchPoint = new Point1(null, x, y);
+                Point1 found = storage.removeValue(searchPoint);
                 if (found == null)
                     System.out.println(
                             "Point not found: (" + x + ", " + y + ")");
@@ -211,7 +211,7 @@ public class CommandFile
     private void parseSearch(Scanner scanner)
     {
         String name = scanner.next();
-        SkipNode<String, Point2> searchResult = storage.search(name);
+        SkipNode<String, Point1> searchResult = storage.search(name);
         if (null == storage.search(name))
         {
             System.out.println("Point not found: " + name);

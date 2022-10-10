@@ -38,7 +38,7 @@ public class FlyWeight implements PRNode
     }
 
     @Override
-    public PRNode insert(int x, int y, int width, Point2 newPoint)
+    public PRNode insert(int x, int y, int width, Point1 newPoint)
     {
         Leaf newLeaf = new Leaf(newPoint);
         return newLeaf;
@@ -56,7 +56,7 @@ public class FlyWeight implements PRNode
     }
 
     @Override
-    public Point2 remove(int x, int y, int width, Point2 searchPoint,
+    public Point1 remove(int x, int y, int width, Point1 searchPoint,
             boolean byName)
     {
         return null;

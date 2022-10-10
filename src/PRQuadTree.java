@@ -21,7 +21,7 @@ public class PRQuadTree
      * @param newPoint
      *            the new point to be added to the tree
      */
-    public void insert(Point2 newPoint)
+    public void insert(Point1 newPoint)
     {
         if (newPoint == null) return;
         root = root.insert(0, 0, 1024, newPoint);
@@ -52,9 +52,9 @@ public class PRQuadTree
      * @param byName whether we need the name for SkipList
      * @return the point that was removed, null if none removed
      */
-    public Point2 remove(Point2 findPoint, boolean byName)
+    public Point1 remove(Point1 findPoint, boolean byName)
     {
-        Point2 output = root.remove(0, 0, 1024, findPoint, byName);
+        Point1 output = root.remove(0, 0, 1024, findPoint, byName);
         root = root.adjustTree(0, 0, 1024);
         return output;
     }

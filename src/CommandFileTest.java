@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import student.TestCase;
 
 /**
@@ -77,5 +78,10 @@ public class CommandFileTest extends TestCase
         cmd = new CommandFile("SkipListSampleInput.txt");
         boolean success = cmd.parseFile();
         assertTrue(success);
+    }
+    
+    public void testNull() {
+        cmd = new CommandFile("hi");
+        assertFalse(cmd.parseFile());
     }
 }

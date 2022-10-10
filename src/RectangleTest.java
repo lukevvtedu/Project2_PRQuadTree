@@ -280,10 +280,10 @@ public class RectangleTest extends TestCase {
          */
         public void testContains()
         {
-            Point2 point1 = new Point2("a", 1, 1);
-            Point2 point2 = new Point2("b", 1022, 1);
-            Point2 point3 = new Point2("c", 1, 1022);
-            Point2 point4 = new Point2("d", 1022, 1022);
+            Point1 point1 = new Point1("a", 1, 1);
+            Point1 Point1 = new Point1("b", 1022, 1);
+            Point1 point3 = new Point1("c", 1, 1022);
+            Point1 point4 = new Point1("d", 1022, 1022);
             
             
             Rectangle rect1 = new Rectangle("rect1", 0, 0, 1023, 1023);
@@ -292,13 +292,13 @@ public class RectangleTest extends TestCase {
             Rectangle rect4 = new Rectangle("rect4", 1020, 1024, 1, 4);
             
             Rectangle rect5 = new Rectangle("rect5", 1, 4, 2, 2);
-            Point2 point5 = new Point2("e", 2, 3);
+            Point1 point5 = new Point1("e", 2, 3);
             assertTrue(rect1.contains(point1));
             assertFalse(rect2.contains(point1));
-            assertFalse(rect3.contains(point2));
+            assertFalse(rect3.contains(Point1));
             assertFalse(rect2.contains(point3));
             assertFalse(rect3.contains(point3));
-            assertFalse(rect2.contains(point2));
+            assertFalse(rect2.contains(Point1));
             assertFalse(rect5.contains(point5));
             
             

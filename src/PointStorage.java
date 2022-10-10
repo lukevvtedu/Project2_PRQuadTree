@@ -12,7 +12,7 @@ public class PointStorage
     /**
      * creates the skipList for the database
      */
-    private SkipList<String, Point2> list;
+    private SkipList<String, Point1> list;
     /**
      * declares the quadtree for the database
      */
@@ -23,7 +23,7 @@ public class PointStorage
      */
     public PointStorage()
     {
-        list = new SkipList<String, Point2>();
+        list = new SkipList<String, Point1>();
         tree = new PRQuadTree();
     }
 
@@ -33,7 +33,7 @@ public class PointStorage
      * @param pair
      *            is the value to be inserted
      */
-    public void insert(KVPair<String, Point2> pair)
+    public void insert(KVPair<String, Point1> pair)
     {
         list.insert(pair);
         tree.insert(pair.theVal);
@@ -47,9 +47,9 @@ public class PointStorage
      *            is the key to be searched
      * @return the value in the SkipList and quadtree
      */
-    public Point2 removeKey(String key)
+    public Point1 removeKey(String key)
     {
-        Point2 output = list.removeKey(key);
+        Point1 output = list.removeKey(key);
         if (output == null)
             return null;
         tree.remove(output, true);
@@ -63,9 +63,9 @@ public class PointStorage
      *            is the value to be found
      * @return the value in the SkipList and quadtree
      */
-    public Point2 removeValue(Point2 val)
+    public Point1 removeValue(Point1 val)
     {
-        Point2 search = tree.remove(val, false);
+        Point1 search = tree.remove(val, false);
         if (search == null)
             return null;
         list.removeKey(search.getName());
@@ -96,7 +96,7 @@ public class PointStorage
      *            the key that is being searched for
      * @return the node in the SkipList that contains that specific key
      */
-    public SkipNode<String, Point2> search(String key)
+    public SkipNode<String, Point1> search(String key)
     {
         return list.search(key);
     }

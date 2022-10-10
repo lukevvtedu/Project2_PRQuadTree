@@ -185,7 +185,7 @@ public class Rectangle implements Comparable<Rectangle>
      * @param otherPoint the point that could be within the rectangle
      * @return if the point is within the rectang;e
      */
-    public boolean contains(Point2 otherPoint)
+    public boolean contains(Point1 otherPoint)
     {
         // left edge r2 is to the right of r1
         return !(

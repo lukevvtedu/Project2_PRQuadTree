@@ -32,7 +32,7 @@ public interface PRNode
      *            - Point that is being added to the list
      * @return the root of the subtree after the tree has been traversed
      */
-    public PRNode insert(int x, int y, int width, Point2 newPoint);
+    public PRNode insert(int x, int y, int width, Point1 newPoint);
 
     /**
      * fixes the tree after removal of a point
@@ -61,7 +61,7 @@ public interface PRNode
      * @param byName whether the name is necessary for SkipList
      * @return the node that is removed
      */
-    public Point2 remove(int x, int y, int width, Point2 removePoint, 
+    public Point1 remove(int x, int y, int width, Point1 removePoint, 
             boolean byName);
     
     /**

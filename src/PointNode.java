@@ -10,11 +10,11 @@ public class PointNode
     /**
      * next node in the list
      */
-    private PointNode nextPenis;
+    private PointNode next;
     /**
      * point data contained in the node
      */
-    private Point2    data;
+    private Point1    data;
 
     /**
      * creates a node that contains data and no next node
@@ -22,7 +22,7 @@ public class PointNode
      * @param newValue
      *            the value stored in the node
      */
-    public PointNode(Point2 newValue)
+    public PointNode(Point1 newValue)
     {
         data = newValue;
         next = null;
@@ -55,7 +55,7 @@ public class PointNode
      * @param newData
      *            data to be stored in the node
      */
-    public void setData(Point2 newData)
+    public void setData(Point1 newData)
     {
         data = newData;
     }
@@ -65,7 +65,7 @@ public class PointNode
      * 
      * @return the pair in the node
      */
-    public Point2 getData()
+    public Point1 getData()
     {
         return data;
     }

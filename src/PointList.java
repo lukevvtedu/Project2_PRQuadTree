@@ -37,7 +37,7 @@ public class PointList
      * @param startPoint
      *            the data that will start the list
      */
-    public PointList(Point2 startPoint)
+    public PointList(Point1 startPoint)
     {
         head = new PointNode(startPoint);
         size = 1;
@@ -50,17 +50,17 @@ public class PointList
      * 
      * @return the data stored in the head of the node
      */
-    public Point2 removeHead()
+    public Point1 removeHead()
     {
         if (head.getNext() != null)
         {
-            Point2 temp = head.getData();
+            Point1 temp = head.getData();
             head = head.getNext();
             return temp;
         }
         else
         {
-            Point2 output = head.getData();
+            Point1 output = head.getData();
             head = null;
             return output;
         }
@@ -75,7 +75,7 @@ public class PointList
      * @param newPoint
      *            the Point that will be added to the node
      */
-    public void insert(Point2 newPoint)
+    public void insert(Point1 newPoint)
     {
         PointNode newNode = new PointNode(newPoint);
         if (head == null)
@@ -205,7 +205,7 @@ public class PointList
      * @param byName whether to search by name
      * @return the point removed
      */
-    public Point2 remove(Point2 searchPoint, boolean byName)
+    public Point1 remove(Point1 searchPoint, boolean byName)
     {
         PointNode curr = head;
         if (curr == null)

@@ -29,7 +29,7 @@ public class Leaf implements PRNode
      * @param startPoint
      *            initial point stored in the LinkedList
      */
-    public Leaf(Point2 startPoint)
+    public Leaf(Point1 startPoint)
     {
         data = new PointList(startPoint);
     }
@@ -119,7 +119,7 @@ public class Leaf implements PRNode
      * @return the root of the subtree that is being inserted after adjusting
      */
     @Override
-    public PRNode insert(int x, int y, int width, Point2 newPoint)
+    public PRNode insert(int x, int y, int width, Point1 newPoint)
     {
         data.insert(newPoint);
         return adjustTree(x, y, width);
@@ -150,10 +150,10 @@ public class Leaf implements PRNode
      * @param byName is whether or not we remove name for SkipList
      * @return the point that is removed
      */
-    public Point2 remove(int x, int y, int width, Point2 removePoint,
+    public Point1 remove(int x, int y, int width, Point1 removePoint,
             boolean byName)
     {
-        Point2 output = data.remove(removePoint, byName);
+        Point1 output = data.remove(removePoint, byName);
         adjustTree(x, y, width);
         return output;
     }
