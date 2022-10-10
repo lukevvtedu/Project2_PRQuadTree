@@ -9,8 +9,12 @@ public class LeafTest extends TestCase{
     }
     
     public  void testAdjustTree() {
-        Point1 p1 = new Point1("a",0 ,1);
-        leaf1.insert(1, 1, 0, p1);
-        assertEquals(leaf1.adjustTree(1, 2, 3), leaf);
+        Point1 p1 = new Point1("a", 20, 20);
+        leaf.insert(1, 1, 0, p1);
+        assertEquals(leaf.adjustTree(20, 20, 3), leaf);
+    }
+    
+    public void testDump() {
+        
     }
 }

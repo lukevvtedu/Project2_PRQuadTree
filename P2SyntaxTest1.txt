@@ -1,17 +1,17 @@
 
-insert r_r          -1 -20
-  insert rec        7 -8
+insert point          -10 -10
+  insert point2        10 -10
 
 
 duplicates
 
 dump
 
-search r_r
+search point
 
-remove r_r
-remove 1 -1
-remove 1 1
+remove point
+remove 10 -10
+remove 10 10
     
-regionsearch   -5 -5 20 20 
-regionsearch 5    5   4   -2
+regionsearch   -10 -10 10 10 
+regionsearch 3    3   2   -1

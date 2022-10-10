@@ -1,0 +1,76 @@
+
+insert point          -1 -20
+  insert rec        7 -8
+dump
+
+remove tester1
+
+insert northwest 20 20
+search northwest
+insert northeast 1 1000
+insert southwest 1022 1
+insert southeast 1022 1022
+insert a 2 3 
+insert c 2 3 
+insert ff 2 3
+insert fa 2 4
+insert ff 8 10
+insert f 8 10
+insert a -2 3 
+insert 1a 2 3 
+insert 2a -2 3 
+
+
+search ff
+search c
+search northeast
+
+remove a
+remove b
+remove 1 2 
+remove 2 3 
+remove -2 3 
+
+insert a 2 3 
+
+search b
+search a
+search c
+search ff
+
+insert b 1 1 
+insert a 0 0 
+insert a 1 1 
+insert c 1 2 
+insert a 0 0
+insert a 0 1 
+insert a 1 1 
+insert 1a 1 1 
+insert b1 1024 0
+insert b2 0 1024
+
+insert findme 1 1 
+insert <b -2 -3 
+insert testPoint 5 5 
+
+insert trueNameTrueCoord  10 10 
+insert 1falseNameTrueCoord 15 170 
+insert trueNameFalseCoord -10 14 
+insert 1falseNameFalseCoord -57 42 
+
+insert test1 0 0
+
+
+duplicates
+
+dump
+
+search a
+search c
+search virtual_rec0
+
+dump 
+remove point
+remove 1 1000 
+remove 10 -10 
+remove 5 5 
