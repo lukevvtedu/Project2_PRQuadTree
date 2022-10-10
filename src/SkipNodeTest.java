@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertNotEquals;
 import student.TestCase;
 
 /**

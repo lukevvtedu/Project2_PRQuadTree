@@ -13,7 +13,7 @@ public class CommandFile
     /**
      * SkipList used to hold the KeyValue Pairs for Rectangles
      */
-    private PointStorage base;
+    private PointStorage storage;
 
     /**
      * constructor for parser, stores filename
@@ -24,7 +24,7 @@ public class CommandFile
     public CommandFile(String file)
     {
         inputFile = file;
-        base = new PointStorage();
+        storage = new PointStorage();
     }
 
     /**
@@ -79,7 +79,7 @@ public class CommandFile
                     }
                     case ("dump"):
                     {
-                        base.dump();
+                        storage.dump();
                         break;
                     }
                     default:
@@ -116,7 +116,7 @@ public class CommandFile
             Point2 point = new Point2(name, x, y);
             KVPair<String, Point2> pair = new KVPair<String, Point2>(name,
                     point);
-            base.insert(pair);
+            storage.insert(pair);
             System.out.println("Point inserted: (" + name + ", " + x + ", "
                     + y + ")");
         }
@@ -139,7 +139,7 @@ public class CommandFile
         String name = scanner.next();
         if (!isNumeric(name))
         {
-            Point2 found = base.removeKey(name);
+            Point2 found = storage.removeKey(name);
             if (found == null)
                 System.out.println("Point not removed: " + name);
             else
@@ -152,7 +152,7 @@ public class CommandFile
             if (checkDim(x, y))
             {
                 Point2 searchPoint = new Point2(null, x, y);
-                Point2 found = base.removeValue(searchPoint);
+                Point2 found = storage.removeValue(searchPoint);
                 if (found == null)
                     System.out.println(
                             "Point not found: (" + x + ", " + y + ")");
@@ -188,7 +188,7 @@ public class CommandFile
                     + y + ", " + width + ", " + height + "):");
             Rectangle regionRect = new Rectangle("regionRect", x, y, width,
                     height);
-            // base.regionSearch(regionRect);
+            // storage.regionSearch(regionRect);
             System.out.println("1 quadtree nodes visited");
         }
         else
@@ -211,8 +211,8 @@ public class CommandFile
     private void parseSearch(Scanner scanner)
     {
         String name = scanner.next();
-        SkipNode<String, Point2> searchResult = base.search(name);
-        if (null == base.search(name))
+        SkipNode<String, Point2> searchResult = storage.search(name);
+        if (null == storage.search(name))
         {
             System.out.println("Point not found: " + name);
         }
@@ -242,7 +242,7 @@ public class CommandFile
     private void parseDuplicates()
     {
         System.out.println("Duplicate points:");
-        base.duplicates();
+        storage.duplicates();
     }
 
     /**

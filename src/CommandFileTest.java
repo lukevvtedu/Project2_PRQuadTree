@@ -66,5 +66,16 @@ public class CommandFileTest extends TestCase
         boolean success = cmd.parseFile();
         assertTrue(success);
     }
-
+    public void testParseFile2()
+    {
+        cmd = new CommandFile("P2SyntaxTest2.txt");
+        boolean success = cmd.parseFile();
+        assertTrue(success);
+    }
+    public void testParseFile3()
+    {
+        cmd = new CommandFile("SkipListSampleInput.txt");
+        boolean success = cmd.parseFile();
+        assertTrue(success);
+    }
 }
