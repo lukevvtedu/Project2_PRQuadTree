@@ -15,6 +15,7 @@ public class SkipListTest extends TestCase
     private KVPair<String, Integer>   pair1;
     private KVPair<String, Integer>   pair2;
     private KVPair<String, Integer>   pair3;
+    private KVPair<String, Integer>   pair7;
 
     /**
      * sets up the test cases
@@ -24,6 +25,7 @@ public class SkipListTest extends TestCase
         pair1 = new KVPair<String, Integer>("node1", 1);
         pair2 = new KVPair<String, Integer>("node6", 2);
         pair3 = new KVPair<String, Integer>("node3", 3);
+        pair7 = new KVPair<String, Integer>("node7", null);
         list = new SkipList<String, Integer>();
     }
 
@@ -47,12 +49,24 @@ public class SkipListTest extends TestCase
      */
     public void testRandomInsert()
     {
-        TestableRandom.setNextBooleans(false, true, true, false);
+        TestableRandom.setNextBooleans(false, true, true, false, false, false);
         assertEquals(1, list.getHead().getLevel());
         assertTrue(list.insert(pair1));
+//        list.insert(pair1);
+//        assertTrue(list.getHead().getPair() == pair1);
         assertEquals(1, list.getHead().getLevel());
+        assertFalse(2 == list.getHead().getLevel());
+        
         assertTrue(list.insert(pair2));
+//        list.insert(pair2);
+//        assertTrue(list.getHead().getPair() == pair2);
         assertEquals(2, list.getHead().getLevel());
+        assertFalse(list.getHead().getLevel() == 1);
+        
+        assertTrue(list.insert(pair7));
+        assertEquals(2, list.getHead().getLevel());
+        assertNull(list.getHead().getValue());
+        assertNull(list.getHead().getKey());
         list.dump();
     }
 
