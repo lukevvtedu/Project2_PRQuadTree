@@ -25,61 +25,43 @@ public class InternalAttributes implements PRNode {
 
     @Override
     /**
-     * 
+     * dumps the nodes
      */
-    public int dump(int x, int y, int width, int depth) {
+    public int dump(int x, int y, int w, int d) {
         String s = "";
-        for (int i = 0; i < depth; i++) {
+        for (int i = 0; i < d; i++) {
             s += "  ";
         }
-        s += "Node at " + x + ", " + y + ", " + width + ": Internal";
+        s += "Node at " + x + ", " + y + ", " + w + ": Internal";
         System.out.println(s);
-        int nd = depth + 1;
-        return 1 + northWest.dump(x, y, width / 2, nd) + northEast.dump(x
-            + width / 2, y, width / 2, nd) + southWest.dump(x, y + width
-                / 2, width / 2, nd) + southEast.dump(x + width / 2, y
-                    + width / 2, width / 2, nd);
+        int nd = d + 1;
+        return 1 + northWest.dump(x, y, w / 2, nd) + northEast.dump(x + w / 2,
+            y, w / 2, nd) + southWest.dump(x, y + w / 2, w / 2, nd) + southEast
+                .dump(x + w / 2, y + w / 2, w / 2, nd);
 
     }
 
 
     /**
-     * insert a new Point in a child of the current internal node; recursive in
-     * that it will continue following internal nodes if the child chosen is
-     * internal, otherwise the function will end when it reaches a leaf
-     * 
-     * @param x
-     *            - x coordinate of the top left corner of the current region
-     * @param y
-     *            - y coordinate of the top left corner of the current region
-     * @param width
-     *            - width of the current region
-     * @param point
-     *            - Point that will be added to the tree
-     * @return the root of the subtree that is changed after insert
+     * inserts a node
      */
     @Override
-    public PRNode insert(int x, int y, int width, Point1 point) {
-        if (point.getX() < x + width / 2)
-            if (point.getY() < y + width / 2)
-                northWest = northWest.insert(x, y, width / 2, point);
+    public PRNode insert(int x, int y, int w, Point1 point) {
+        if (point.getX() < x + w / 2)
+            if (point.getY() < y + w / 2)
+                northWest = northWest.insert(x, y, w / 2, point);
             else
-                southWest = southWest.insert(x, y + width / 2, width / 2,
-                    point);
-        else if (point.getY() < y + width / 2)
-            northEast = northEast.insert(x + width / 2, y, width / 2, point);
+                southWest = southWest.insert(x, y + w / 2, w / 2, point);
+        else if (point.getY() < y + w / 2)
+            northEast = northEast.insert(x + w / 2, y, w / 2, point);
         else
-            southEast = southEast.insert(x + width / 2, y + width / 2, width
-                / 2, point);
+            southEast = southEast.insert(x + w / 2, y + w / 2, w / 2, point);
         return this;
     }
 
 
     /**
-     * gets the data stored in the internal node; which is null because the
-     * internal node stores no information except pointers to its children
-     * 
-     * @return null because there is no data in the internal node
+     * gets the data stores in the list
      */
     @Override
     public PointList getData() {
@@ -87,6 +69,9 @@ public class InternalAttributes implements PRNode {
     }
 
 
+    /**
+     * checks for duplicates
+     */
     @Override
     public void duplicates() {
         northEast.duplicates();
@@ -95,32 +80,28 @@ public class InternalAttributes implements PRNode {
         southEast.duplicates();
     }
 
-    public Point1 remove(
-        int x,
-        int y,
-        int width,
-        Point1 point,
-        boolean name) {
+
+    /**
+     * removes a node based on its region
+     */
+    public Point1 remove(int x, int y, int w, Point1 point, boolean name) {
         Point1 p1 = null;
-        if (point.getX() < x + width / 2)
-            if (point.getY() < y + width / 2) {
-                p1 = northWest.remove(x, y, width / 2, point,
-                    name);
+        if (point.getX() < x + w / 2)
+            if (point.getY() < y + w / 2) {
+                p1 = northWest.remove(x, y, w / 2, point, name);
             }
             else {
-                p1 = southWest.remove(x, y + width / 2, width / 2,
-                    point, name);
+                p1 = southWest.remove(x, y + w / 2, w / 2, point, name);
             }
-        else if (point.getY() < y + width / 2) {
-            p1 = northEast.remove(x + width / 2, y, width / 2,
-                point, name);
+        else if (point.getY() < y + w / 2) {
+            p1 = northEast.remove(x + w / 2, y, w / 2, point, name);
         }
         else {
-            p1 = southEast.remove(x + width / 2, y + width / 2, width
-                / 2, point, name);
+            p1 = southEast.remove(x + w / 2, y + w / 2, w / 2, point, name);
         }
         return p1;
     }
+
 
     private int removeEmpty() {
         int nw = northWest.getUnique();
@@ -131,13 +112,15 @@ public class InternalAttributes implements PRNode {
     }
 
 
+    /**
+     * adjusts the tree
+     */
     @Override
-    public PRNode adjustTree(int x, int y, int width) {
-        northWest = northWest.adjustTree(x, y, width / 2);
-        southWest = southWest.adjustTree(x, y + width / 2, width / 2);
-        northEast = northEast.adjustTree(x + width / 2, y, width / 2);
-        southEast = southEast.adjustTree(x + width / 2, y + width / 2, width
-            / 2);
+    public PRNode adjustTree(int x, int y, int w) {
+        northWest = northWest.adjustTree(x, y, w / 2);
+        southWest = southWest.adjustTree(x, y + w / 2, w / 2);
+        northEast = northEast.adjustTree(x + w / 2, y, w / 2);
+        southEast = southEast.adjustTree(x + w / 2, y + w / 2, w / 2);
         int u = removeEmpty();
         if (u == 0) {
             return PRQuadTree.FLYWEIGHT;
@@ -146,17 +129,17 @@ public class InternalAttributes implements PRNode {
             Leaf leaf = new Leaf();
             while (northWest.getData() != null && northWest.getData()
                 .getHead() != null)
-                leaf.insert(x, y, width, northWest.getData().removeHead());
+                leaf.insert(x, y, w, northWest.getData().removeHead());
             while (northEast.getData() != null && northEast.getData()
                 .getHead() != null)
-                leaf.insert(x, y, width, northEast.getData().removeHead());
+                leaf.insert(x, y, w, northEast.getData().removeHead());
             while (southWest.getData() != null && southWest.getData()
                 .getHead() != null)
-                leaf.insert(x, y, width, southWest.getData().removeHead());
+                leaf.insert(x, y, w, southWest.getData().removeHead());
             while (southEast.getData() != null && southEast.getData()
                 .getHead() != null)
-                leaf.insert(x, y, width, southEast.getData().removeHead());
-            return leaf.adjustTree(x, y, width);
+                leaf.insert(x, y, w, southEast.getData().removeHead());
+            return leaf.adjustTree(x, y, w);
         }
         else {
             return this;
@@ -165,7 +148,7 @@ public class InternalAttributes implements PRNode {
 
 
     /**
-     * @return the number of children -- 4
+     * returns the number of children
      */
     public int getUnique() {
         return 4;

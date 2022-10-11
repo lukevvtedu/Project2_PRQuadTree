@@ -1,28 +1,34 @@
 import student.TestCase;
+/**
+ * tests prquadtree
+ * 
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
+ */
 public class PRQuadTreeTest extends TestCase {
 
-    /**
-     * generates Point1s to add
-     */
+    private PRQuadTree t1;
     private Point1 p1;
     private Point1 p2;
     private Point1 p3;
     private Point1 p4;
-    private PRQuadTree t1;
     
+
     /**
-     * sets up the inof
+     * sets up the test
      */
     public void setUp() throws Exception {
+        t1 = new PRQuadTree();
         p1 = new Point1("a", 0, 20);
         p2 = new Point1("b", 30, 50);
         p3 = new Point1("c", 130, 150);
         p4 = new Point1("d", 220, 220);
-        t1 = new PRQuadTree();
     }
 
+
     /**
-     * tests the insert for quadt1
+     * tests insert
      */
     public void testInsert() {
         t1.insert(p1);
@@ -53,8 +59,10 @@ public class PRQuadTreeTest extends TestCase {
             + "13 quadtree nodes printed\n", 
             systemOut().getHistory());
     }
+    
+
     /**
-     * tests for duplicates
+     * tests duplicates
      */
     public void testDuplicates() {
         t1.insert(p1);
@@ -76,7 +84,7 @@ public class PRQuadTreeTest extends TestCase {
     }
     
     /**
-     * tests removal
+     * tests remove
      */
     public void testRemove() {
         t1.remove(p1, true);

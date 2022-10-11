@@ -1,7 +1,7 @@
 import student.TestCase;
 
 /**
- * The default class for reading and running the commands from a text file
+ * Test class for point2
  * 
  * @author oehlingr19 and lukev
  * @version 3

@@ -158,7 +158,7 @@ public class CommandFile {
                     System.out.println("Point removed: " + p2.toString());
 
                 else
-                    System.out.println("Point not p2: (" + x + ", " + y
+                    System.out.println("Point not found: (" + x + ", " + y
                             + ")");
             }
             else
@@ -209,14 +209,14 @@ public class CommandFile {
         String str = s.next();
         SkipNode<String, Point1> skipNoder = storage.search(str);
         if (null == storage.search(str)) {
-            System.out.println("Point not p2: " + str);
+            System.out.println("Point not found: " + str);
         }
         else {
-            System.out.println("Point p2: " + skipNoder.getValue().toString());
+            System.out.println("Point found: " + skipNoder.getValue().toString());
             while (skipNoder.next[0] != null && skipNoder.next[0].getKey().compareTo(skipNoder
                 .getKey()) == 0) {
                 skipNoder = skipNoder.next[0];
-                System.out.println("Point p2: " + skipNoder.getValue().toString());
+                System.out.println("Point found: " + skipNoder.getValue().toString());
             }
         }
     }

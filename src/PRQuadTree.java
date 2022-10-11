@@ -1,61 +1,65 @@
-public class PRQuadTree
-{
+/**
+ * The default class for reading and running the commands from a text file
+ * 
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
+ */
+public class PRQuadTree {
     /**
-     * Flyweight model used to for null pointers in the tree
+     * public value to hand off instances
      */
     public static final FlyWeight FLYWEIGHT = FlyWeight.getInstance();
-
-    private PRNode            root;
+    private PRNode base;
 
     /**
-     * default constructor that stores a flyweight in the root of the tree
+     * default PRQuadTree constructor
      */
-    public PRQuadTree()
-    {
-        root = PRQuadTree.FLYWEIGHT;
+    public PRQuadTree() {
+        base = PRQuadTree.FLYWEIGHT;
     }
 
+
     /**
-     * insert a new point into the tree
+     * inserts a new point
      * 
-     * @param newPoint
-     *            the new point to be added to the tree
+     * @param p
      */
-    public void insert(Point1 newPoint)
-    {
-        if (newPoint == null) return;
-        root = root.insert(0, 0, 1024, newPoint);
+    public void insert(Point1 p) {
+        if (p == null)
+            return;
+        base = base.insert(0, 0, 1024, p);
     }
 
+
     /**
-     * output a list of every item in the list in the following format:
-     * "Node at 0, 0, 1024: Empty"
+     * dumps the nodes in the tree
      */
-    public void dump()
-    {
+    public void dump() {
         System.out.println("QuadTree dump:");
-        System.out.println(
-                root.dump(0, 0, 1024, 0) + " quadtree nodes printed");
+        System.out.println(base.dump(0, 0, 1024, 0)
+            + " quadtree nodes printed");
     }
 
-    /**
-     * runs the duplicates command
-     */
-    public void duplicates()
-    {
-        root.duplicates();
-    }
 
     /**
-     * runs the remove method
-     * @param findPoint the point to be found
-     * @param byName whether we need the name for SkipList
-     * @return the point that was removed, null if none removed
+     * finds the dupes
      */
-    public Point1 remove(Point1 findPoint, boolean byName)
-    {
-        Point1 output = root.remove(0, 0, 1024, findPoint, byName);
-        root = root.adjustTree(0, 0, 1024);
+    public void duplicates() {
+        base.duplicates();
+    }
+
+
+
+    /**
+     * removes a point
+     * @param p1 point being removed
+     * @param name if removing by name
+     * @return removed point
+     */
+    public Point1 remove(Point1 p1, boolean name) {
+        Point1 output = base.remove(0, 0, 1024, p1, name);
+        base = base.adjustTree(0, 0, 1024);
         return output;
     }
 }
