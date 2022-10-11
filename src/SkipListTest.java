@@ -42,34 +42,6 @@ public class SkipListTest extends TestCase
 
         list.dump();
     }
-
-    /**
-     * make sure that the list will adjust the head when a node is added higher
-     * than the head
-     */
-    public void testRandomInsert()
-    {
-        TestableRandom.setNextBooleans(false, true, true, false, false, false);
-        assertEquals(1, list.getHead().getLevel());
-        assertTrue(list.insert(pair1));
-//        list.insert(pair1);
-//        assertTrue(list.getHead().getPair() == pair1);
-        assertEquals(1, list.getHead().getLevel());
-        assertFalse(2 == list.getHead().getLevel());
-        
-        assertTrue(list.insert(pair2));
-//        list.insert(pair2);
-//        assertTrue(list.getHead().getPair() == pair2);
-        assertEquals(2, list.getHead().getLevel());
-        assertFalse(list.getHead().getLevel() == 1);
-        
-        assertTrue(list.insert(pair7));
-        assertEquals(2, list.getHead().getLevel());
-        assertNull(list.getHead().getValue());
-        assertNull(list.getHead().getKey());
-        list.dump();
-    }
-
     /**
      * creates a fake region to check for new rectangles
      */
@@ -105,4 +77,32 @@ public class SkipListTest extends TestCase
         assertTrue(intersectList.intersections());
 
     }
+    /**
+     * make sure that the list will adjust the head when a node is added higher
+     * than the head
+     */
+    public void testRandomInsert()
+    {
+        TestableRandom.setNextBooleans(false, true, true, false, false, false);
+        assertEquals(1, list.getHead().getLevel());
+        assertTrue(list.insert(pair1));
+//        list.insert(pair1);
+//        assertTrue(list.getHead().getPair() == pair1);
+        assertEquals(1, list.getHead().getLevel());
+        assertFalse(2 == list.getHead().getLevel());
+        
+        assertTrue(list.insert(pair2));
+//        list.insert(pair2);
+//        assertTrue(list.getHead().getPair() == pair2);
+        assertEquals(2, list.getHead().getLevel());
+        assertFalse(list.getHead().getLevel() == 1);
+        
+        assertTrue(list.insert(pair7));
+        assertEquals(2, list.getHead().getLevel());
+        assertNull(list.getHead().getValue());
+        assertNull(list.getHead().getKey());
+        list.dump();
+    }
+
+    
 }

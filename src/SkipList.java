@@ -49,6 +49,46 @@ public class SkipList<K extends Comparable<K>, E>
         return head;
     }
 
+    
+
+    
+    /**
+     * Locates a value at a point in the array, moves pointers from its previous
+     * nodes to the nodes following to "delete" the node for the garbage
+     * collector to clean
+     * 
+     * @param key
+     *            the searched for key
+     * @return located value if found, if not, null
+     */
+    public E removeKey(K key)
+    {
+        SkipNode<K, E> current = head;
+        E located = null;
+        for (int i = level; i >= 0; i--)
+        {
+            while (current.next[i] != null)
+            {
+                if (current.next[i].getKey().compareTo(key) == 0)
+                {
+                    located = current.next[i].getValue();
+                    current.next[i] = current.next[i].next[i];
+                    break;
+                }
+                if (current.next[i].getKey().compareTo(key) > 0)
+                {
+                    break;
+                }
+                current = current.next[i];
+            }
+        }
+        if (located != null)
+        {
+            size--;
+        }
+        return located;
+    }
+    
     /**
      * fixes the head to make sure that it represents the new largest number of
      * levels
@@ -67,23 +107,6 @@ public class SkipList<K extends Comparable<K>, E>
         level = newLevel;
 
     }
-
-    /**
-     * flips a "coin" to generate a random level for the nodes to be added.
-     *
-     * @return picked random level
-     */
-    private int pickRandomLevel()
-    {
-        int leveler = 0;
-        Random random = new TestableRandom();
-        while (random.nextBoolean())
-        {
-            leveler++;
-        }
-        return leveler;
-    }
-
     /**
      * inserts a node in a sorted order. based on given code from canvas
      * 
@@ -123,42 +146,20 @@ public class SkipList<K extends Comparable<K>, E>
     }
 
     /**
-     * Locates a value at a point in the array, moves pointers from its previous
-     * nodes to the nodes following to "delete" the node for the garbage
-     * collector to clean
-     * 
-     * @param key
-     *            the searched for key
-     * @return located value if found, if not, null
+     * flips a "coin" to generate a random level for the nodes to be added.
+     *
+     * @return picked random level
      */
-    public E removeKey(K key)
+    private int pickRandomLevel()
     {
-        SkipNode<K, E> current = head;
-        E located = null;
-        for (int i = level; i >= 0; i--)
+        int leveler = 0;
+        Random random = new TestableRandom();
+        while (random.nextBoolean())
         {
-            while (current.next[i] != null)
-            {
-                if (current.next[i].getKey().compareTo(key) == 0)
-                {
-                    located = current.next[i].getValue();
-                    current.next[i] = current.next[i].next[i];
-                    break;
-                }
-                if (current.next[i].getKey().compareTo(key) > 0)
-                {
-                    break;
-                }
-                current = current.next[i];
-            }
+            leveler++;
         }
-        if (located != null)
-        {
-            size--;
-        }
-        return located;
+        return leveler;
     }
-
     /**
      * Scrolls along the bottom level of the list until the loop hits a value
      * that is the same as the searched for value. Then uses removeKey(key of

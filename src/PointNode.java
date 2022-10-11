@@ -20,18 +20,6 @@ public class PointNode {
         next = null;
     }
 
-
-    /**
-     * sets the next node
-     * 
-     * @param pn
-     *            next node
-     */
-    public void setNext(PointNode pn) {
-        next = pn;
-    }
-
-
     /**
      * gets the next node
      * 
@@ -51,12 +39,21 @@ public class PointNode {
     public void setData(Point1 pd) {
         data = pd;
     }
-
+    
+    /**
+     * sets the next node
+     * 
+     * @param pn
+     *            next node
+     */
+    public void setNext(PointNode pn) {
+        next = pn;
+    }
 
     /**
      * gets the data of the node
      * 
-     * @return data of ndoe
+     * @return data of node
      */
     public Point1 getData() {
         return data;

@@ -18,18 +18,27 @@ public class PointStorage {
         pr = new PRQuadTree();
     }
 
-
     /**
-     * inserts a kv pair object
+     * searches for the specific node
      * 
-     * @param kv
-     *            kv object being added
+     * @param k
+     *            key being searched
+     * @return searched pair
      */
-    public void insert(KVPair<String, Point1> kv) {
-        sl.insert(kv);
-        pr.insert(kv.theVal);
+    public SkipNode<String, Point1> search(String k) {
+        return sl.search(k);
     }
 
+
+    /**
+     * searches a region for rectangles
+     * 
+     * @param r
+     *            rectangle being searched
+     */
+    public void regionSearch(Rectangle r) {
+        // left blank intentionally
+    }
 
     /**
      * removes the key from the point
@@ -46,6 +55,16 @@ public class PointStorage {
         return out;
     }
 
+    /**
+     * inserts a kv pair object
+     * 
+     * @param kv
+     *            kv object being added
+     */
+    public void insert(KVPair<String, Point1> kv) {
+        sl.insert(kv);
+        pr.insert(kv.theVal);
+    }
 
     /**
      * removes value from the point
@@ -80,25 +99,5 @@ public class PointStorage {
     }
 
 
-    /**
-     * searches for the specific node
-     * 
-     * @param k
-     *            key being searched
-     * @return searched pair
-     */
-    public SkipNode<String, Point1> search(String k) {
-        return sl.search(k);
-    }
 
-
-    /**
-     * searches a region for rectangles
-     * 
-     * @param r
-     *            rectangle being searched
-     */
-    public void regionSearch(Rectangle r) {
-        // left blank intentionally
-    }
 }

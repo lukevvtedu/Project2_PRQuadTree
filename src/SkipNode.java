@@ -53,6 +53,30 @@ public class SkipNode<K extends Comparable<K>, E>
      * =========================== getters and setters section
      */
 
+   
+
+    /**
+     * level getter
+     * 
+     * @return level of the current node
+     */
+    public int getLevel()
+    {
+        return level;
+    }
+
+    /**
+     * gets the pair
+     * 
+     * @return KVPair of the node
+     */
+    public KVPair<K, E> getPair()
+    {
+        if (pair != null)
+            return pair;
+        return null;
+    }
+    
     /**
      * key getter
      * 
@@ -78,28 +102,6 @@ public class SkipNode<K extends Comparable<K>, E>
         {
             return pair.value();
         }
-        return null;
-    }
-
-    /**
-     * level getter
-     * 
-     * @return level of the current node
-     */
-    public int getLevel()
-    {
-        return level;
-    }
-
-    /**
-     * gets the pair
-     * 
-     * @return KVPair of the node
-     */
-    public KVPair<K, E> getPair()
-    {
-        if (pair != null)
-            return pair;
         return null;
     }
 }

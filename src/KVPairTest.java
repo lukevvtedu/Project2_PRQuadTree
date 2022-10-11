@@ -33,6 +33,30 @@ public class KVPairTest extends TestCase
     }
 
     /**
+     * tests the getter for the value
+     */
+    public void testValue()
+    {
+        assertTrue(
+                Integer.valueOf(1).equals(Integer.valueOf(pair1.value())));
+        assertTrue(
+                Integer.valueOf(2).equals(Integer.valueOf(pair2.value())));
+        assertFalse(Integer.valueOf(pair3.value())
+                .equals(Integer.valueOf(pair1.value())));
+    }
+    
+    /**
+     * tests the getter for the key
+     */
+    public void testKey()
+    {
+        assertEquals("first", pair1.key());
+        assertEquals("second", pair2.key());
+        assertEquals(pair1.key(), pair3.key());
+    }
+
+
+    /**
      * tests the comparison of two specific KVPairs
      */
     public void testCompareToKVPairOfKE()
@@ -52,28 +76,6 @@ public class KVPairTest extends TestCase
                 .equals(Integer.valueOf(0)));
     }
 
-    /**
-     * tests the getter for the key
-     */
-    public void testKey()
-    {
-        assertEquals("first", pair1.key());
-        assertEquals("second", pair2.key());
-        assertEquals(pair1.key(), pair3.key());
-    }
-
-    /**
-     * tests the getter for the value
-     */
-    public void testValue()
-    {
-        assertTrue(
-                Integer.valueOf(1).equals(Integer.valueOf(pair1.value())));
-        assertTrue(
-                Integer.valueOf(2).equals(Integer.valueOf(pair2.value())));
-        assertFalse(Integer.valueOf(pair3.value())
-                .equals(Integer.valueOf(pair1.value())));
-    }
 
     /**
      * tests to see if the toString method returns the expected string for a

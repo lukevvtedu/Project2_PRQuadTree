@@ -25,27 +25,6 @@ public class RectangleTest extends TestCase {
             assertTrue(rect1.compareTo(rect2) == 0);
         }
 
-        /**
-         * tests when the compareTo should be false
-         */
-        public void testCompareToFalseX()
-        {
-            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
-            Rectangle rect2 = new Rectangle("a", 1, 0, 10, 10);
-
-            assertTrue(rect1.compareTo(rect2) == -1);
-        }
-
-        /**
-         * tests when the compareTo should be false
-         */
-        public void testCompareToFalseY()
-        {
-            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
-            Rectangle rect2 = new Rectangle("a", 0, 1, 10, 10);
-
-            assertTrue(rect1.compareTo(rect2) == -1);
-        }
 
         /**
          * tests when the compareTo should be false
@@ -69,24 +48,14 @@ public class RectangleTest extends TestCase {
             assertTrue(rect1.compareTo(rect2) == -1);
         }
 
-        /**
-         * tests when the compareTo should be false
-         */
-        public void testCompareToFalseXY()
-        {
-            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
-            Rectangle rect2 = new Rectangle("a", 1, 1, 10, 10);
-
-            assertTrue(rect1.compareTo(rect2) == -1);
-        }
 
         /**
          * tests when the compareTo should be false
          */
-        public void testCompareToFalseXW()
+        public void testCompareToFalseX()
         {
             Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
-            Rectangle rect2 = new Rectangle("a", 1, 0, 11, 10);
+            Rectangle rect2 = new Rectangle("a", 1, 0, 10, 10);
 
             assertTrue(rect1.compareTo(rect2) == -1);
         }
@@ -189,6 +158,39 @@ public class RectangleTest extends TestCase {
 
             assertTrue(rect1.compareTo(rect2) == -1);
         }
+        /**
+         * tests when the compareTo should be false
+         */
+        public void testCompareToFalseY()
+        {
+            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
+            Rectangle rect2 = new Rectangle("a", 0, 1, 10, 10);
+
+            assertTrue(rect1.compareTo(rect2) == -1);
+        }
+        /**
+         * tests when the compareTo should be false
+         */
+        public void testCompareToFalseXY()
+        {
+            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
+            Rectangle rect2 = new Rectangle("a", 1, 1, 10, 10);
+
+            assertTrue(rect1.compareTo(rect2) == -1);
+        }
+
+        /**
+         * tests when the compareTo should be false
+         */
+        public void testCompareToFalseXW()
+        {
+            Rectangle rect1 = new Rectangle("a", 0, 0, 10, 10);
+            Rectangle rect2 = new Rectangle("a", 1, 0, 11, 10);
+
+            assertTrue(rect1.compareTo(rect2) == -1);
+        }
+
+
 
         /**
          * tests the toString method of the rectangle

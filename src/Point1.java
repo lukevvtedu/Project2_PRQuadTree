@@ -57,17 +57,6 @@ public class Point1 implements Comparable<Point1> {
         return y;
     }
 
-
-    /**
-     * getter function for the name
-     * 
-     * @return name
-     */
-    String getName() {
-        return name;
-    }
-
-
     /**
      * compares two values
      */
@@ -90,6 +79,15 @@ public class Point1 implements Comparable<Point1> {
             return (this.x == p.getX() && this.y == p.getY());
         }
         return false;
+    }
+
+    /**
+     * getter function for the name
+     * 
+     * @return name
+     */
+    String getName() {
+        return name;
     }
 
 

@@ -23,25 +23,6 @@ public class InternalAttributes implements PRNode {
     }
 
 
-    @Override
-    /**
-     * dumps the nodes
-     */
-    public int dump(int x, int y, int w, int d) {
-        String s = "";
-        for (int i = 0; i < d; i++) {
-            s += "  ";
-        }
-        s += "Node at " + x + ", " + y + ", " + w + ": Internal";
-        System.out.println(s);
-        int nd = d + 1;
-        return 1 + northWest.dump(x, y, w / 2, nd) + northEast.dump(x + w / 2,
-            y, w / 2, nd) + southWest.dump(x, y + w / 2, w / 2, nd) + southEast
-                .dump(x + w / 2, y + w / 2, w / 2, nd);
-
-    }
-
-
     /**
      * inserts a node
      */
@@ -58,50 +39,6 @@ public class InternalAttributes implements PRNode {
             southEast = southEast.insert(x + w / 2, y + w / 2, w / 2, point);
         return this;
     }
-
-
-    /**
-     * gets the data stores in the list
-     */
-    @Override
-    public PointList getData() {
-        return null;
-    }
-
-
-    /**
-     * checks for duplicates
-     */
-    @Override
-    public void duplicates() {
-        northEast.duplicates();
-        northWest.duplicates();
-        southWest.duplicates();
-        southEast.duplicates();
-    }
-
-
-    /**
-     * removes a node based on its region
-     */
-    public Point1 remove(int x, int y, int w, Point1 point, boolean name) {
-        Point1 p1 = null;
-        if (point.getX() < x + w / 2)
-            if (point.getY() < y + w / 2) {
-                p1 = northWest.remove(x, y, w / 2, point, name);
-            }
-            else {
-                p1 = southWest.remove(x, y + w / 2, w / 2, point, name);
-            }
-        else if (point.getY() < y + w / 2) {
-            p1 = northEast.remove(x + w / 2, y, w / 2, point, name);
-        }
-        else {
-            p1 = southEast.remove(x + w / 2, y + w / 2, w / 2, point, name);
-        }
-        return p1;
-    }
-
 
     private int removeEmpty() {
         int nw = northWest.getUnique();
@@ -145,6 +82,66 @@ public class InternalAttributes implements PRNode {
             return this;
         }
     }
+
+    @Override
+    /**
+     * dumps the nodes
+     */
+    public int dump(int x, int y, int w, int d) {
+        String s = "";
+        for (int i = 0; i < d; i++) {
+            s += "  ";
+        }
+        s += "Node at " + x + ", " + y + ", " + w + ": Internal";
+        System.out.println(s);
+        int nd = d + 1;
+        return 1 + northWest.dump(x, y, w / 2, nd) + northEast.dump(x + w / 2,
+            y, w / 2, nd) + southWest.dump(x, y + w / 2, w / 2, nd) + southEast
+                .dump(x + w / 2, y + w / 2, w / 2, nd);
+
+    }
+    /**
+     * gets the data stores in the list
+     */
+    @Override
+    public PointList getData() {
+        return null;
+    }
+
+
+    /**
+     * checks for duplicates
+     */
+    @Override
+    public void duplicates() {
+        northEast.duplicates();
+        northWest.duplicates();
+        southWest.duplicates();
+        southEast.duplicates();
+    }
+
+
+    /**
+     * removes a node based on its region
+     */
+    public Point1 remove(int x, int y, int w, Point1 point, boolean name) {
+        Point1 p1 = null;
+        if (point.getX() < x + w / 2)
+            if (point.getY() < y + w / 2) {
+                p1 = northWest.remove(x, y, w / 2, point, name);
+            }
+            else {
+                p1 = southWest.remove(x, y + w / 2, w / 2, point, name);
+            }
+        else if (point.getY() < y + w / 2) {
+            p1 = northEast.remove(x + w / 2, y, w / 2, point, name);
+        }
+        else {
+            p1 = southEast.remove(x + w / 2, y + w / 2, w / 2, point, name);
+        }
+        return p1;
+    }
+
 
 
     /**

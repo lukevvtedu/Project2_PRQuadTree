@@ -37,6 +37,35 @@ public class PointList {
 
 
     /**
+     * This method returns the duplicate points in the linked
+     * list
+     */
+    public void outputDupes() {
+        PointNode p3 = point;
+        String out = "";
+        while (p3.getNext() != null) {
+            if (p3.getData().equals(p3.getNext().getData())) {
+                if (!(out.contains(p3.getNext().getData()
+                    .outputCoord()))) {
+                    out += p3.getNext().getData().outputCoord();
+                    System.out.println(p3.getNext().getData().outputCoord());
+                }
+            }
+            p3 = p3.getNext();
+        }
+    }
+
+
+    /**
+     * get the pointer to the point of the list
+     * 
+     * @return the point of the list
+     */
+    public PointNode getHead() {
+        return point;
+    }
+
+    /**
      * removes the point from the list, and replaces the point with the next node
      * 
      * @return the data stored in the point of the node
@@ -90,35 +119,6 @@ public class PointList {
     }
 
 
-    /**
-     * This method returns the duplicate points in the linked
-     * list
-     */
-    public void outputDupes() {
-        PointNode p3 = point;
-        String out = "";
-        while (p3.getNext() != null) {
-            if (p3.getData().equals(p3.getNext().getData())) {
-                if (!(out.contains(p3.getNext().getData()
-                    .outputCoord()))) {
-                    out += p3.getNext().getData().outputCoord();
-                    System.out.println(p3.getNext().getData().outputCoord());
-                }
-            }
-            p3 = p3.getNext();
-        }
-    }
-
-
-    /**
-     * get the pointer to the point of the list
-     * 
-     * @return the point of the list
-     */
-    public PointNode getHead() {
-        return point;
-    }
-
 
     /**
      * get the size of the list; size should not include dupe
@@ -152,25 +152,6 @@ public class PointList {
             size = s1;
             unique = u1;
         }
-    }
-
-
-    /**
-     * returns whether or not the list contains only a unique point
-     * 
-     * @return true if there is only one unique set of coordinates in the list,
-     *         false otherwise
-     */
-    public boolean onlyDuplicates() {
-        return dupe;
-    }
-
-
-    /**
-     * @return the number of unique elements in the list
-     */
-    public int getUnique() {
-        return unique;
     }
 
 
@@ -215,4 +196,24 @@ public class PointList {
         }
         return null;
     }
+
+
+    /**
+     * returns whether or not the list contains only a unique point
+     * 
+     * @return true if there is only one unique set of coordinates in the list,
+     *         false otherwise
+     */
+    public boolean onlyDuplicates() {
+        return dupe;
+    }
+
+
+    /**
+     * @return the number of unique elements in the list
+     */
+    public int getUnique() {
+        return unique;
+    }
+
 }

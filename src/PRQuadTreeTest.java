@@ -26,7 +26,25 @@ public class PRQuadTreeTest extends TestCase {
         p4 = new Point1("d", 220, 220);
     }
 
-
+    /**
+     * tests remove
+     */
+    public void testRemove() {
+        t1.remove(p1, true);
+        t1.remove(p1, false);
+        t1.insert(p1);
+        t1.dump();
+        t1.remove(p1, true);
+        t1.dump();
+        t1.insert(p1);
+        t1.insert(p1);
+        t1.insert(p1);
+        t1.insert(p2);
+        t1.dump();
+        t1.remove(p1, false);
+        t1.dump();
+        
+    }
     /**
      * tests insert
      */
@@ -83,23 +101,5 @@ public class PRQuadTreeTest extends TestCase {
         
     }
     
-    /**
-     * tests remove
-     */
-    public void testRemove() {
-        t1.remove(p1, true);
-        t1.remove(p1, false);
-        t1.insert(p1);
-        t1.dump();
-        t1.remove(p1, true);
-        t1.dump();
-        t1.insert(p1);
-        t1.insert(p1);
-        t1.insert(p1);
-        t1.insert(p2);
-        t1.dump();
-        t1.remove(p1, false);
-        t1.dump();
-        
-    }
+
 }

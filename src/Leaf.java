@@ -47,6 +47,31 @@ public class Leaf implements PRNode {
         return 1;
     }
 
+    /**
+     * gets the data of the list
+     */
+    public PointList getData() {
+        return pl;
+    }
+
+
+    /**
+     * outputs the duplicates
+     */
+    @Override
+    public void duplicates() {
+        pl.outputDupes();
+    }
+
+
+    /**
+     * removes a point from the tree then moves the tree
+     */
+    public Point1 remove(int x, int y, int w, Point1 rem, boolean name) {
+        Point1 out = pl.remove(rem, name);
+        adjustTree(x, y, w);
+        return out;
+    }
 
     /**
      * moves the tree
@@ -78,34 +103,6 @@ public class Leaf implements PRNode {
         pl.insert(point);
         return adjustTree(x, y, w);
     }
-
-
-    /**
-     * gets the data of the list
-     */
-    public PointList getData() {
-        return pl;
-    }
-
-
-    /**
-     * outputs the duplicates
-     */
-    @Override
-    public void duplicates() {
-        pl.outputDupes();
-    }
-
-
-    /**
-     * removes a point from the tree then moves the tree
-     */
-    public Point1 remove(int x, int y, int w, Point1 rem, boolean name) {
-        Point1 out = pl.remove(rem, name);
-        adjustTree(x, y, w);
-        return out;
-    }
-
 
     /**
      * checks if the leaf is unique
