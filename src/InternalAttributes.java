@@ -40,6 +40,7 @@ public class InternalAttributes implements PRNode {
         return this;
     }
 
+
     private int removeEmpty() {
         int nw = northWest.getUnique();
         int ne = northEast.getUnique();
@@ -83,6 +84,7 @@ public class InternalAttributes implements PRNode {
         }
     }
 
+
     @Override
     /**
      * dumps the nodes
@@ -100,6 +102,8 @@ public class InternalAttributes implements PRNode {
                 .dump(x + w / 2, y + w / 2, w / 2, nd);
 
     }
+
+
     /**
      * gets the data stores in the list
      */
@@ -123,6 +127,18 @@ public class InternalAttributes implements PRNode {
 
     /**
      * removes a node based on its region
+     * 
+     * @param x
+     *            x val
+     * @param y
+     *            y val
+     * @param w
+     *            width
+     * @param point
+     *            point
+     * @param name
+     *            if name
+     * @return point 1
      */
     public Point1 remove(int x, int y, int w, Point1 point, boolean name) {
         Point1 p1 = null;
@@ -143,9 +159,10 @@ public class InternalAttributes implements PRNode {
     }
 
 
-
     /**
      * returns the number of children
+     * 
+     * @return 4
      */
     public int getUnique() {
         return 4;

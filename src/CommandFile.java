@@ -213,12 +213,14 @@ public class CommandFile {
             System.out.println("Point not found: " + str);
         }
         else {
-            System.out.println("Point found: " + skipNoder.getValue()
-                .toString());
-            while (skipNoder.next[0] != null && skipNoder.next[0].getKey()
+            System.out.println("Point found: " 
+                + skipNoder.getValue().toString());
+            while (skipNoder.next[0] != null && 
+                skipNoder.next[0].getKey()
                 .compareTo(skipNoder.getKey()) == 0) {
                 skipNoder = skipNoder.next[0];
-                System.out.println("Point found: " + skipNoder.getValue()
+                System.out.println("Point found: " +
+                skipNoder.getValue()
                     .toString());
             }
         }

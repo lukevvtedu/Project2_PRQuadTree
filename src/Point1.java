@@ -57,8 +57,14 @@ public class Point1 implements Comparable<Point1> {
         return y;
     }
 
+
     /**
      * compares two values
+     * 
+     * @param p
+     *            the point
+     * @return the comapred val
+     * 
      */
     public int compareTo(Point1 p) {
         if (this.x == p.getX()) {
@@ -81,6 +87,7 @@ public class Point1 implements Comparable<Point1> {
         return false;
     }
 
+
     /**
      * getter function for the name
      * 
@@ -93,6 +100,8 @@ public class Point1 implements Comparable<Point1> {
 
     /**
      * converts to a string
+     * 
+     * @return the string
      */
     public String toString() {
         return "(" + name + ", " + x + ", " + y + ")";

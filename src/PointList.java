@@ -5,7 +5,7 @@
  * @version 1
  */
 public class PointList {
-    
+
     private PointNode point;
     private int size;
     private int unique;
@@ -45,8 +45,7 @@ public class PointList {
         String out = "";
         while (p3.getNext() != null) {
             if (p3.getData().equals(p3.getNext().getData())) {
-                if (!(out.contains(p3.getNext().getData()
-                    .outputCoord()))) {
+                if (!(out.contains(p3.getNext().getData().outputCoord()))) {
                     out += p3.getNext().getData().outputCoord();
                     System.out.println(p3.getNext().getData().outputCoord());
                 }
@@ -65,8 +64,10 @@ public class PointList {
         return point;
     }
 
+
     /**
-     * removes the point from the list, and replaces the point with the next node
+     * removes the point from the list,
+     * and replaces the point with the next node
      * 
      * @return the data stored in the point of the node
      */
@@ -117,7 +118,6 @@ public class PointList {
             size++;
         }
     }
-
 
 
     /**
@@ -183,8 +183,8 @@ public class PointList {
                     resize();
                     return p2.getData();
                 }
-                else if (p3.getNext().getData().getName().compareTo(
-                    ps.getName()) == 0) {
+                else if (p3.getNext().getData().getName().compareTo(ps
+                    .getName()) == 0) {
                     PointNode p2 = p3.getNext();
                     p3.setNext(p3.getNext().getNext());
                     p2.setNext(null);

@@ -42,7 +42,7 @@ public class SkipNode<K extends Comparable<K>, E> {
     /**
      * gets level
      * 
-     * @return
+     * @return the level
      */
     public int getLevel() {
         return level;
