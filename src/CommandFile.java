@@ -83,6 +83,7 @@ public class CommandFile {
         }
     }
 
+
     /**
      * checks for duplicates using cmd
      */
@@ -116,6 +117,8 @@ public class CommandFile {
     public boolean checkDim(int x, int y) {
         return (x >= 0 && y >= 0 && x < 1024 && y < 1024);
     }
+
+
     /**
      * searches a region for rectangles
      * 
@@ -139,7 +142,6 @@ public class CommandFile {
     }
 
 
-
     /**
      * remove function using cmd
      * 
@@ -149,7 +151,7 @@ public class CommandFile {
     private void remove(Scanner s) {
         String str = s.next();
         if (checkNum(str)) {
-        	int x = Integer.parseInt(str);
+            int x = Integer.parseInt(str);
             int y = s.nextInt();
             if (checkDim(x, y)) {
                 Point1 p1 = new Point1(null, x, y);
@@ -159,7 +161,7 @@ public class CommandFile {
 
                 else
                     System.out.println("Point not found: (" + x + ", " + y
-                            + ")");
+                        + ")");
             }
             else
                 System.out.println("Point rejected: (" + x + ", " + y + ")");
@@ -198,7 +200,6 @@ public class CommandFile {
     }
 
 
-
     /**
      * searches using cmd. name for clarity
      * 
@@ -212,16 +213,15 @@ public class CommandFile {
             System.out.println("Point not found: " + str);
         }
         else {
-            System.out.println("Point found: " + skipNoder.getValue().toString());
-            while (skipNoder.next[0] != null && skipNoder.next[0].getKey().compareTo(skipNoder
-                .getKey()) == 0) {
+            System.out.println("Point found: " + skipNoder.getValue()
+                .toString());
+            while (skipNoder.next[0] != null && skipNoder.next[0].getKey()
+                .compareTo(skipNoder.getKey()) == 0) {
                 skipNoder = skipNoder.next[0];
-                System.out.println("Point found: " + skipNoder.getValue().toString());
+                System.out.println("Point found: " + skipNoder.getValue()
+                    .toString());
             }
         }
     }
-
-
-
 
 }

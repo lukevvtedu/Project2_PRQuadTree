@@ -12,83 +12,76 @@
  */
 
 public class KVPair<K extends Comparable<K>, E>
-        implements Comparable<KVPair<K, E>>
-{
+    implements Comparable<KVPair<K, E>> {
+
     /**
-     * where the key of the pair will be stored
+     * key being stored
      */
     K theKey;
 
     /**
-     * where the value for the pair will be stored
+     * element being stored
      */
     E theVal;
 
     /**
-     * constructor for the KVPair that stored the key and value
+     * constructor for kvPair
      * 
      * @param k
-     *            key to be stored
-     * @param v
-     *            value to be stored
+     *            key
+     * @param e
+     *            element
      */
-    public KVPair(K k, E v)
-    {
+    public KVPair(K k, E e) {
         theKey = k;
-        theVal = v;
+        theVal = e;
     }
 
 
     /**
-     * returns the key from the KVPair
+     * returns the key
      * 
-     * @return key stored in pair
+     * @return the key
      */
-    public K key()
-    {
+    public K key() {
         return theKey;
     }
 
+
     /**
-     * returns the value from the KVPair
+     * returns the value
      * 
-     * @return value stored in pair
+     * @return the value
      */
-    public E value()
-    {
+    public E value() {
         return theVal;
     }
+
+
     /**
-     * compares two KVPairs based on keys
-     * 
-     * @param it
-     *            the KVPair that is being checked against this pair
-     * @return 0 if they have the same key, another integer if different
+     * compares the kvpair
      */
-    public int compareTo(KVPair<K, E> it)
-    {
+    public int compareTo(KVPair<K, E> it) {
         return theKey.compareTo(it.key());
     }
 
+
     /**
-     * compares this KVPair's key to a given key
+     * compares the key value
      * 
      * @param it
-     *            the key that is being used to compare with this
-     * @return 0 if they keys are equal, another integer if different
+     *            the key value
+     * @return the key
      */
-    public int compareTo(K it)
-    {
+    public int compareTo(K it) {
         return theKey.compareTo(it);
     }
 
+
     /**
-     * returns a String representation of the KVPair
-     * 
-     * @return the String values for both the key and value
+     * puts the key and value into a string
      */
-    public String toString()
-    {
+    public String toString() {
         return theKey.toString() + ", " + theVal.toString();
     }
 }

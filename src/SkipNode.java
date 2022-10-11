@@ -10,96 +10,77 @@
  * @param <E>
  *            element of the object
  */
-public class SkipNode<K extends Comparable<K>, E>
-{
+public class SkipNode<K extends Comparable<K>, E> {
 
     /**
-     * creates a skip list node array that is blank that will point to the next
-     * node in the list
+     * skip list used for storage
      */
     public SkipNode<K, E>[] next;
 
-    /**
-     * Data stored into the node
-     */
-    private KVPair<K, E>    pair;
-    /**
-     * determines the level that the node is actually on
-     */
-    private int             level;
+    private KVPair<K, E> pair;
+    private int level;
 
     /**
-     * constructor to make nodes that store a KVPair
+     * skipnode constructor
      * 
-     * @param newPair
-     *            pair of values stored as the data in the node
-     * @param newLevel
-     *            the integer used to store the level of that node
+     * @param kv
+     *            kv pair
+     * @param lev
+     *            level
      */
-
     @SuppressWarnings("unchecked")
-    public SkipNode(KVPair<K, E> newPair, int newLevel)
-    {
-        level = newLevel;
-        pair = newPair;
-        next = (SkipNode<K, E>[]) new SkipNode[newLevel + 1];
-        for (int i = 0; i < level; i++)
-        {
+    public SkipNode(KVPair<K, E> kv, int lev) {
+        level = lev;
+        pair = kv;
+        next = (SkipNode<K, E>[])new SkipNode[lev + 1];
+        for (int i = 0; i < level; i++) {
             next[i] = null;
         }
     }
 
-    /**
-     * =========================== getters and setters section
-     */
-
-   
 
     /**
-     * level getter
+     * gets level
      * 
-     * @return level of the current node
+     * @return
      */
-    public int getLevel()
-    {
+    public int getLevel() {
         return level;
     }
 
+
     /**
-     * gets the pair
+     * gets the kv pair
      * 
-     * @return KVPair of the node
+     * @return kv pair
      */
-    public KVPair<K, E> getPair()
-    {
+    public KVPair<K, E> getPair() {
         if (pair != null)
             return pair;
         return null;
     }
-    
+
+
     /**
-     * key getter
+     * gets the key
      * 
-     * @return key of the node
+     * @return the key
      */
-    public K getKey()
-    {
-        if (pair != null)
-        {
+    public K getKey() {
+        if (pair != null) {
             return pair.key();
         }
         return null;
     }
 
+
     /**
-     * value getter
+     * gets the value
      * 
-     * @return value of node
+     * @return the value
      */
-    public E getValue()
-    {
-        if (pair != null)
-        {
+    public E getValue() {
+        if (pair != null) {
             return pair.value();
         }
         return null;
