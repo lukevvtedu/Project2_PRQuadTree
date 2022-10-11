@@ -12,17 +12,17 @@ import java.io.FileNotFoundException;
  */
 public class CommandFile {
 
-    private String input;
+    private String fileName;
     private PointStorage storage;
 
     /**
      * The default constructor for the commandFile class
      * 
-     * @param st
+     * @param file
      *            The file being read from the given argument
      */
     public CommandFile(String file) {
-        input = file;
+        fileName = file;
         storage = new PointStorage();
     }
 
@@ -33,30 +33,30 @@ public class CommandFile {
      * @return successful run
      */
     public boolean run() {
-        Scanner s = null;
-        Exception d = null;
+        Scanner scan = null;
+        Exception except = null;
         try {
-            s = new Scanner(new File(input));
+            scan = new Scanner(new File(fileName));
         }
         catch (FileNotFoundException e) {
-            d = e;
+            except = e;
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        if (d == null) {
-            while (s.hasNext()) {
-                String cmd = s.next();
+        if (except == null) {
+            while (scan.hasNext()) {
+                String cmd = scan.next();
                 switch (cmd) {
                     case ("insert"): {
-                        cmdInsert(s);
+                        cmdInsert(scan);
                         break;
                     }
                     case ("remove"): {
-                        remove(s);
+                        remove(scan);
                         break;
                     }
                     case ("regionsearch"): {
-                        regionSearch(s);
+                        regionSearch(scan);
                         break;
                     }
                     case ("duplicates"): {
@@ -64,7 +64,7 @@ public class CommandFile {
                         break;
                     }
                     case ("search"): {
-                        cmdSearch(s);
+                        cmdSearch(scan);
                         break;
                     }
                     case ("dump"): {
@@ -82,110 +82,6 @@ public class CommandFile {
             return false;
         }
     }
-
-
-    /**
-     * insert function using cmd, name used for clarity
-     * 
-     * @param s
-     *            scanner object
-     */
-    private void cmdInsert(Scanner s) {
-        String st = s.next();
-        int x = s.nextInt();
-        int y = s.nextInt();
-        char c = st.charAt(0);
-        if (checkDim(x, y) && Character.isAlphabetic(c)) {
-            Point1 p = new Point1(st, x, y);
-            KVPair<String, Point1> pair = new KVPair<String, Point1>(st, p);
-            storage.insert(pair);
-            System.out.println("Point inserted: (" + st + ", " + x + ", " + y
-                + ")");
-        }
-        else
-            System.out.println("Point rejected: (" + st + ", " + x + ", " + y
-                + ")");
-    }
-
-
-    /**
-     * remove function using cmd
-     * 
-     * @param s
-     *            scanner object
-     */
-    private void remove(Scanner s) {
-        String st = s.next();
-        if (!checkNum(st)) {
-            Point1 found = storage.removeKey(st);
-            if (found == null)
-                System.out.println("Point not removed: " + st);
-            else
-                System.out.println("Point removed: " + found.toString());
-        }
-        else {
-            int x = Integer.parseInt(st);
-            int y = s.nextInt();
-            if (checkDim(x, y)) {
-                Point1 searchPoint = new Point1(null, x, y);
-                Point1 found = storage.removeValue(searchPoint);
-                if (found == null)
-                    System.out.println("Point not found: (" + x + ", " + y
-                        + ")");
-                else
-                    System.out.println("Point removed: " + found.toString());
-            }
-            else
-                System.out.println("Point rejected: (" + x + ", " + y + ")");
-        }
-    }
-
-
-    /**
-     * searches a region for rectangles
-     * 
-     * @param s
-     *            scanner object
-     */
-    private void regionSearch(Scanner s) {
-        int x = s.nextInt();
-        int y = s.nextInt();
-        int w = s.nextInt();
-        int h = s.nextInt();
-        if (!(h < 1 | w < 1)) {
-            System.out.println("Points intersecting region (" + x + ", " + y
-                + ", " + w + ", " + h + "):");
-            System.out.println("1 quadtree nodes visited");
-        }
-        else {
-            System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + w
-                + ", " + h + ")");
-        }
-    }
-
-
-    /**
-     * searches using cmd. name for clarity
-     * 
-     * @param s
-     *            scanner object
-     */
-    private void cmdSearch(Scanner s) {
-        String st = s.next();
-        SkipNode<String, Point1> sn1 = storage.search(st);
-        if (null == storage.search(st)) {
-            System.out.println("Point not found: " + st);
-        }
-        else {
-            System.out.println("Point found: " + sn1.getValue().toString());
-            while (sn1.next[0] != null && sn1.next[0].getKey().compareTo(sn1
-                .getKey()) == 0) {
-                sn1 = sn1.next[0];
-                System.out.println("Point found: " + sn1.getValue().toString());
-            }
-        }
-    }
-
 
     /**
      * checks for duplicates using cmd
@@ -220,5 +116,112 @@ public class CommandFile {
     public boolean checkDim(int x, int y) {
         return (x >= 0 && y >= 0 && x < 1024 && y < 1024);
     }
+    /**
+     * searches a region for rectangles
+     * 
+     * @param scan
+     *            scanner object
+     */
+    private void regionSearch(Scanner scan) {
+        int x = scan.nextInt();
+        int y = scan.nextInt();
+        int width = scan.nextInt();
+        int height = scan.nextInt();
+        if (!(height < 1 | width < 1)) {
+            System.out.println("Points intersecting region (" + x + ", " + y
+                + ", " + width + ", " + height + "):");
+            System.out.println("1 quadtree nodes visited");
+        }
+        else {
+            System.out.println("Rectangle rejected: (" + x + ", " + y + ", " + width
+                + ", " + height + ")");
+        }
+    }
+
+
+
+    /**
+     * remove function using cmd
+     * 
+     * @param scan
+     *            scanner object
+     */
+    private void remove(Scanner scan) {
+        String nextStr = scan.next();
+        if (checkNum(nextStr)) {
+        	int x = Integer.parseInt(nextStr);
+            int y = scan.nextInt();
+            if (checkDim(x, y)) {
+                Point1 searchPoint = new Point1(null, x, y);
+                Point1 found = storage.removeValue(searchPoint);
+                if (found != null)
+                    System.out.println("Point removed: " + found.toString());
+
+                else
+                    System.out.println("Point not found: (" + x + ", " + y
+                            + ")");
+            }
+            else
+                System.out.println("Point rejected: (" + x + ", " + y + ")");
+        }
+        else {
+            Point1 found = storage.removeKey(nextStr);
+            if (found == null)
+                System.out.println("Point not removed: " + nextStr);
+            else
+                System.out.println("Point removed: " + found.toString());
+        }
+    }
+
+
+    /**
+     * insert function using cmd, name used for clarity
+     * 
+     * @param scan
+     *            scanner object
+     */
+    private void cmdInsert(Scanner scan) {
+        String nextStr = scan.next();
+        int x = scan.nextInt();
+        int y = scan.nextInt();
+        char c = nextStr.charAt(0);
+        if (checkDim(x, y) && Character.isAlphabetic(c)) {
+            Point1 p = new Point1(nextStr, x, y);
+            KVPair<String, Point1> pair = new KVPair<String, Point1>(nextStr, p);
+            storage.insert(pair);
+            System.out.println("Point inserted: (" + nextStr + ", " + x + ", " + y
+                + ")");
+        }
+        else
+            System.out.println("Point rejected: (" + nextStr + ", " + x + ", " + y
+                + ")");
+    }
+
+
+
+    /**
+     * searches using cmd. name for clarity
+     * 
+     * @param scan
+     *            scanner object
+     */
+    private void cmdSearch(Scanner scan) {
+        String nextStr = scan.next();
+        SkipNode<String, Point1> skipNoder = storage.search(nextStr);
+        if (null == storage.search(nextStr)) {
+            System.out.println("Point not found: " + nextStr);
+        }
+        else {
+            System.out.println("Point found: " + skipNoder.getValue().toString());
+            while (skipNoder.next[0] != null && skipNoder.next[0].getKey().compareTo(skipNoder
+                .getKey()) == 0) {
+                skipNoder = skipNoder.next[0];
+                System.out.println("Point found: " + skipNoder.getValue().toString());
+            }
+        }
+    }
+
+
+
 
 }
