@@ -1,5 +1,11 @@
-public class Point2
-{
+/**
+ * default running class for the project
+ * 
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
+ */
+public class Point2 {
     /**
      * main function to run the code
      * 
@@ -10,6 +16,6 @@ public class Point2
      */
     public static void main(String[] args) {
         CommandFile cmd = new CommandFile(args[0]);
-        cmd.parseFile();
+        cmd.run();
     }
 }

@@ -1,168 +1,116 @@
 /**
- * Leaf node for the PR-QuadTree. Only node to contain data; contains a
- * linkedlist of Points
+ * The default class for reading and running the commands from a text file
  * 
- * @author Preston Lattimer (platt) Jonathan DeFreeuw (jondef95)
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
  *
  */
-public class Leaf implements PRNode
-{
-    /**
-     * linkedlist of Points stored in the leaf node
-     */
-    private PointList data;
+public class Leaf implements PRNode {
+
+    private PointList pl;
 
     /**
-     * creates a quadleaf
+     * default constructor for the leaf class
      */
-    public Leaf()
-    {
-        data = new PointList();
+    public Leaf() {
+        pl = new PointList();
     }
 
-    /**
-     * standard constructor for the leaf; when a leaf is created, it will have
-     * data stored into it, so a new Point is inserted and a new LinkedList is
-     * made
-     * 
-     * @param startPoint
-     *            initial point stored in the LinkedList
-     */
-    public Leaf(Point1 startPoint)
-    {
-        data = new PointList(startPoint);
-    }
 
     /**
-     * outputs that the current node, with the parameters, is leaf node outputs
-     * each value of the LinkedList the leaf contains
+     * secondary constructor for the leaf object
      * 
-     * @param x
-     *            - x coordinate of the top left corner of the current region
-     * @param y
-     *            - y coordinate of the top left corner of the current region
-     * @param width
-     *            - width of the current region
-     * @param depth
-     *            - depth of the current node, relative to the root (depth 0)
-     * @return the number of nodes visited
+     * @param point
+     *            point being added to the leaf
+     */
+    public Leaf(Point1 point) {
+        pl = new PointList(point);
+    }
+
+
+    /**
+     * dumps the current leaves
      */
     @Override
-    public int dump(int x, int y, int width, int depth)
-    {
-        String spaces = "";
+    public int dump(int x, int y, int w, int depth) {
+        String blank = "";
         for (int i = 0; i < depth; i++)
-            spaces += "  ";
-        String title = spaces + "Node at " + x + ", " + y + ", " + width
-                + ":";
+            blank += "  ";
+        String title = blank + "Node at " + x + ", " + y + ", " + w + ":";
         System.out.println(title);
-        PointNode curr = data.getHead();
-        while (curr != null)
-        {
-            String output = spaces + curr.getData().toString();
-            System.out.println(output);
+        PointNode curr = pl.getHead();
+        while (curr != null) {
+            String out = blank + curr.getData().toString();
+            System.out.println(out);
             curr = curr.getNext();
         }
         return 1;
     }
 
+
     /**
-     * helper function that adjusts the tree if a leaf node contains 4 data
-     * points creates a new internal node, adds the data from the LinkedList as
-     * children, and returns the internal node if it is made, otherwise return
-     * this
-     * 
-     * @param x
-     *            - x coordinate of the top left corner of the current region
-     * @param y
-     *            - y coordinate of the top left corner of the current region
-     * @param width
-     *            - size of the current region
-     * @return the root of the subtree after is has been adjusted
+     * moves the tree
      */
     @Override
-    public PRNode adjustTree(int x, int y, int width)
-    {
-        if (data.getSize() >= 4 && !data.onlyDuplicates())
-        {
-            InternalAttributes root = new InternalAttributes();
-            while (data.getHead() != null)
-            {
-                root.insert(x, y, width, data.removeHead());
+    public PRNode adjustTree(int x, int y, int w) {
+        if (pl.getSize() >= 4 && !pl.onlyDuplicates()) {
+            InternalAttributes base = new InternalAttributes();
+            while (pl.getHead() != null) {
+                base.insert(x, y, w, pl.removeHead());
             }
-            return root;
+            return base;
         }
-        else if (data.getSize() == 0)
-        {
+        else if (pl.getSize() == 0) {
             return PRQuadTree.FLYLEAF;
         }
-        else
-        {
-            data.resize();
+        else {
+            pl.resize();
             return this;
         }
     }
 
+
     /**
-     * insert a new Point in the current node; once the insert has found this
-     * leaf node, then it is finished moving down the end of this tree
-     * 
-     * @param x
-     *            - x coordinate of the top left corner of the current region
-     * @param y
-     *            - y coordinate of the top left corner of the current region
-     * @param width
-     *            - width of the current region
-     * @param newPoint
-     *            - Point that will be added to the tree
-     * @return the root of the subtree that is being inserted after adjusting
+     * inserts a node into the tree
      */
     @Override
-    public PRNode insert(int x, int y, int width, Point1 newPoint)
-    {
-        data.insert(newPoint);
-        return adjustTree(x, y, width);
+    public PRNode insert(int x, int y, int w, Point1 point) {
+        pl.insert(point);
+        return adjustTree(x, y, w);
     }
+
 
     /**
-     * returns the pointer to the linkedlist stored in this leaf node
-     * 
-     * @return the pointer to the linkedlist
+     * gets the data of the list
      */
-    public PointList getData()
-    {
-        return data;
+    public PointList getData() {
+        return pl;
     }
 
+
+    /**
+     * outputs the duplicates
+     */
     @Override
-    public void duplicates()
-    {
-        data.outputDuplicates();
+    public void duplicates() {
+        pl.outputDuplicates();
     }
 
-    /**
-     * removes the leaf node and adjusts the tree
-     * @param x is the x value searched
-     * @param y is the y value searched
-     * @param width is the width of the interval
-     * @param removePoint is the point to be removed
-     * @param byName is whether or not we remove name for SkipList
-     * @return the point that is removed
-     */
-    public Point1 remove(int x, int y, int width, Point1 removePoint,
-            boolean byName)
-    {
-        Point1 output = data.remove(removePoint, byName);
-        adjustTree(x, y, width);
-        return output;
-    }
 
     /**
-     * @return whether or not this is unique
+     * removes a point from the tree then moves the tree
      */
-    public int getUnique()
-    {
-        return data.getSize();
+    public Point1 remove(int x, int y, int w, Point1 rem, boolean name) {
+        Point1 out = pl.remove(rem, name);
+        adjustTree(x, y, w);
+        return out;
+    }
+
+
+    /**
+     * checks if the leaf is unique
+     */
+    public int getUnique() {
+        return pl.getSize();
     }
 }

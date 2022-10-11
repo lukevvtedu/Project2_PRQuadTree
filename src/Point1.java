@@ -1,143 +1,112 @@
 /**
- * Class that stores the coordinates to a point in a given plane
+ * The default class for the point1 class
  * 
- * @author Jonathan DeFreeuw (jondef95) Preston Lattimer (platt)
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
  */
-public class Point1 implements Comparable<Point1>
-{
-    private int    x;
-    private int    y;
+public class Point1 implements Comparable<Point1> {
+    private int x;
+    private int y;
     private String name;
 
     /**
-     * constructor to store a name and coordinates of a point
+     * constructor for the point1 object
      * 
-     * @param startName
-     *            original name
-     * @param startX
-     *            original x coordinate
-     * @param startY
-     *            original y coordinate
+     * @param pn
+     *            name of the point
+     * @param px
+     *            x value of the point
+     * @param py
+     *            y value of the point
      */
-    public Point1(String startName, int startX, int startY)
-    {
-        name = startName;
-        x = startX;
-        y = startY;
+    public Point1(String pn, int px, int py) {
+        name = pn;
+        x = px;
+        y = py;
     }
-    
-    /**
-     * sets the X coordinate of the Point
-     * 
-     * @param newX
-     *            replacement x coordinate
-     */
-    /**public void setX(int newX)
-    {
-        x = newX;
-    }*/
+
 
     /**
-     * sets the Y coordinate of the Point
+     * sets the name to the node
      * 
-     * @param newY
-     *            replacement y coordinate
+     * @param pn
+     *            name being set
      */
-    /**public void setY(int newY)
-    {
-        y = newY;
-    }/*
-    /**
-     * sets the name of the Point
-     * 
-     * @param newName
-     *            replacement name for the Point
-     */
-    public void setName(String newName)
-    {
-        name = newName;
+    public void setName(String pn) {
+        name = pn;
     }
+
+
     /**
-     * access to private x coordinate
+     * getter function for x
      * 
-     * @return x coordinate
+     * @return x value
      */
-    public int getX()
-    {
+    public int getX() {
         return x;
     }
 
+
     /**
-     * access to private y coordinate
+     * getter function for y
      * 
-     * @return y coordinate
+     * @return y value
      */
-    public int getY()
-    {
+    public int getY() {
         return y;
     }
 
+
     /**
-     * access to private name
+     * getter function for the name
      * 
-     * @return name of the Point
+     * @return name
      */
-    public String getName()
-    {
+    String getName() {
         return name;
     }
 
-    /**
-     * checks to see if two Points are equivalent
-     * 
-     * @param other
-     *            the Point being compared to this
-     * @return an integer to determine equivalence
-     */
-    public int compareTo(Point1 other)
-    {
-        if (this.x == other.getX())
-        {
-            return other.getY() - this.y;
-        }
-        else
-            return other.getX() - this.x;
-    }
 
     /**
-     * determines if the obj is equivalent to this Point
-     * 
-     * @param obj
-     *            the Object being compared to this
-     * @return true if equivalent, false otherwise
+     * compares two values
+     */
+    public int compareTo(Point1 p) {
+        if (this.x == p.getX()) {
+            return p.getY() - this.y;
+        }
+        else
+            return p.getX() - this.x;
+    }
+
+
+    /**
+     * compares two objects
      */
     @Override
-    public boolean equals(Object obj)
-    {
-        if (obj instanceof Point1)
-        {
-            Point1 point = (Point1) obj;
-            return (this.x == point.getX() && this.y == point.getY());
+    public boolean equals(Object o) {
+        if (o instanceof Point1) {
+            Point1 p = (Point1)o;
+            return (this.x == p.getX() && this.y == p.getY());
         }
         return false;
     }
 
+
     /**
-     * turns the Point into a String to output to terminal
-     * 
-     * @return the String representation of the Point
+     * converts to a string
      */
-    public String toString()
-    {
+    public String toString() {
         return "(" + name + ", " + x + ", " + y + ")";
     }
-    
+
+
     /**
-     * @return the coordinate in string format
+     * outputs the values of the point to a string
+     * 
+     * @return string of values
      */
-    public String outputCoord()
-    {
+    public String outputCoord() {
         return "(" + x + ", " + y + ")";
     }
 }

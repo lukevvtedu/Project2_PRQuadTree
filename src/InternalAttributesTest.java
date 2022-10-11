@@ -1,66 +1,59 @@
-
 import student.TestCase;
 
 /**
+ * The default class for reading and running the commands from a text file
  * 
- */
-
-/**
- * @author platt, jondef95
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
  *
  */
 public class InternalAttributesTest extends TestCase {
 
-    private InternalAttributes node1;
-    private InternalAttributes node2;
-    private InternalAttributes node3;
+    private InternalAttributes n1;
     private PRNode leaf;
     /**
      * sets up the class
      */
     public void setUp() {
-        node1 = new InternalAttributes();
-        node2 = new InternalAttributes();
-        node3 = new InternalAttributes();
+        n1 = new InternalAttributes();
         leaf = PRQuadTree.FLYLEAF;
-    }
-
+    } 
+    
     /**
      * tests the remove method
      */
     public void testRemove()
     {
-        Point1 searchPoint = new Point1("a", 54, 10);
-        node1.insert(10, 10, 0, searchPoint);
-        Point1 found = leaf.remove(0, 0, 0, searchPoint, false);
-        assertNull(node1.remove(0, 4, 20, searchPoint, true));
-        assertFalse(node1.remove(0, 0, 0, searchPoint, false) == found);
+        Point1 ps = new Point1("a", 54, 10);
+        n1.insert(10, 10, 0, ps);
+        Point1 pf = leaf.remove(0, 0, 0, ps, false);
+        assertNull(n1.remove(0, 4, 20, ps, true));
+        assertFalse(n1.remove(0, 0, 0, ps, false) == pf);
         Point1 p2 = new Point1("b", 0, 10);
-        node1.insert(5, 20, 5, p2);
-        assertTrue(node1.remove(20, 20, 20, searchPoint, false) == found);
+        n1.insert(5, 20, 5, p2);
+        assertTrue(n1.remove(20, 20, 20, ps, false) == pf);
     }
     /**
      * tests the adjustTree method
      */
     public void testAdjustTree()
     {
-        assertSame(node1.adjustTree(0, 0, 10), PRQuadTree.FLYLEAF);
-        PRQuadTree tree = new PRQuadTree();
-        Point1 newPoint = new Point1("a", 1023, 1);
-        tree.insert(newPoint);
-        tree.insert(newPoint);
-        tree.insert(new Point1("b", 1022, 1));
-        tree.insert(new Point1("c", 1, 1));
-        tree.remove(new Point1("c", 1, 1), true);
-        tree.dump();
+        assertSame(n1.adjustTree(0, 0, 10), PRQuadTree.FLYLEAF);
+        PRQuadTree pr1 = new PRQuadTree();
+        Point1 p2 = new Point1("a", 1023, 1);
+        pr1.insert(p2);
+        pr1.insert(p2);
+        pr1.insert(new Point1("b", 1022, 1));
+        pr1.insert(new Point1("c", 1, 1));
+        pr1.remove(new Point1("c", 1, 1), true);
+        pr1.dump();
         assertTrue(systemOut().getHistory()
                 .endsWith("1 quadtree nodes printed\n"));
         
     }
     
     public void testGetUnique() {
-        assertTrue(node1.getUnique() == 4);
+        assertTrue(n1.getUnique() == 4);
     }
     
 }

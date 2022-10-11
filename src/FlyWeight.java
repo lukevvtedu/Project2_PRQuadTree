@@ -1,78 +1,96 @@
 
 /**
- * creates the flyweight for the class so that we can conserve space
- * -any leaf node that does not point to data points instead to the 
- * single flyweight, instantiated inside the quadtree class
- * @author platt, jondef95
- * @version 1
+ * The default class for the flyweight class
+ * 
+ * @author oehlingr19 and lukev
+ * @version 3
  *
  */
-public class FlyWeight implements PRNode
-{
-    private static FlyWeight instance = new FlyWeight();
+public class FlyWeight implements PRNode {
+
+    private static FlyWeight type = new FlyWeight();
 
     /**
-     * creates an empty flyweight
+     * placeholder flyweight
      */
-    private FlyWeight()
-    {
+    private FlyWeight() {
     }
+
 
     /**
-     * @return the individual instance of the quadfly
+     * gets the type of the flyweight
+     * 
+     * @return type of the flyweight
      */
-    public static FlyWeight getInstance()
-    {
-        return instance;
+    public static FlyWeight getInstance() {
+        return type;
     }
 
+
+    /**
+     * gives the dump list of current items
+     */
     @Override
-    public int dump(int x, int y, int width, int depth)
-    {
-        String spaces = "";
-        for (int i = 0; i < depth; i++)
-            spaces += "  ";
-        System.out.println(spaces + "Node at " + x + ", " + y + ", "
-                + width + ": Empty");
+    public int dump(int x, int y, int w, int depth) {
+        String blank = "";
+        for (int i = 0; i < depth; i++) {
+            blank += "  ";
+        }
+        System.out.println(blank + "Node at " + x + ", " + y + ", " + w
+            + ": Empty");
         return 1;
     }
 
+
+    /**
+     * inserts a leaf to the ndoe
+     */
     @Override
-    public PRNode insert(int x, int y, int width, Point1 newPoint)
-    {
-        Leaf newLeaf = new Leaf(newPoint);
-        return newLeaf;
+    public PRNode insert(int x, int y, int w, Point1 p1) {
+        Leaf leaf = new Leaf(p1);
+        return leaf;
     }
 
+
+    /**
+     * gets the data of the list
+     */
     @Override
-    public PointList getData()
-    {
+    public PointList getData() {
         return null;
     }
 
+
+    /**
+     * function to help hand off the duplicates function
+     */
     @Override
-    public void duplicates()
-    {
+    public void duplicates() {
     }
 
+
+    /**
+     * function to help remove a point
+     */
     @Override
-    public Point1 remove(int x, int y, int width, Point1 searchPoint,
-            boolean byName)
-    {
+    public Point1 remove(int x, int y, int w, Point1 point, boolean byName) {
         return null;
     }
 
+
+    /**
+     * function to help adjust the tree
+     */
     @Override
-    public PRNode adjustTree(int x, int y, int width)
-    {
+    public PRNode adjustTree(int x, int y, int w) {
         return this;
     }
-    
+
+
     /**
-     * @return that this has no unique values
+     * checks to see if point is unique
      */
-    public int getUnique()
-    {
+    public int getUnique() {
         return 0;
     }
 
