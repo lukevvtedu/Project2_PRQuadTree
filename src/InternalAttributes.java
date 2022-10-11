@@ -16,10 +16,10 @@ public class InternalAttributes implements PRNode {
      * constructor for InternalAttributes
      */
     public InternalAttributes() {
-        northEast = PRQuadTree.FLYLEAF;
-        northWest = PRQuadTree.FLYLEAF;
-        southEast = PRQuadTree.FLYLEAF;
-        southWest = PRQuadTree.FLYLEAF;
+        northEast = PRQuadTree.FLYWEIGHT;
+        northWest = PRQuadTree.FLYWEIGHT;
+        southEast = PRQuadTree.FLYWEIGHT;
+        southWest = PRQuadTree.FLYWEIGHT;
     }
 
 
@@ -140,7 +140,7 @@ public class InternalAttributes implements PRNode {
             / 2);
         int u = removeEmpty();
         if (u == 0) {
-            return PRQuadTree.FLYLEAF;
+            return PRQuadTree.FLYWEIGHT;
         }
         else if (u < 4) {
             Leaf leaf = new Leaf();

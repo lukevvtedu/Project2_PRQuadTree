@@ -26,13 +26,13 @@ public class FlyWeightTest extends TestCase {
      */
     public void testDump() {
         Point1 p1 = new Point1("a", 0, 0);
-        t1.FLYLEAF.dump(0, 0, 2, 0);
+        t1.FLYWEIGHT.dump(0, 0, 2, 0);
         assertEquals("Node at 0, 0, 2: Empty\n", systemOut().getHistory());
-        assertFalse(l1 == t1.FLYLEAF.insert(0, 0, 4, p1));
-        assertNull(t1.FLYLEAF.getData());
-        assertNull(t1.FLYLEAF.remove(0, 0, 4, p1, false));
+        assertFalse(l1 == t1.FLYWEIGHT.insert(0, 0, 4, p1));
+        assertNull(t1.FLYWEIGHT.getData());
+        assertNull(t1.FLYWEIGHT.remove(0, 0, 4, p1, false));
         systemOut().clearHistory();
-        t1.FLYLEAF.dump(0, 0, 0, 2);
+        t1.FLYWEIGHT.dump(0, 0, 0, 2);
         assertEquals("    Node at 0, 0, 0: Empty\n", systemOut().getHistory());
     }
 }

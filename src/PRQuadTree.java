@@ -3,7 +3,7 @@ public class PRQuadTree
     /**
      * Flyweight model used to for null pointers in the tree
      */
-    public static final FlyWeight FLYLEAF = FlyWeight.getInstance();
+    public static final FlyWeight FLYWEIGHT = FlyWeight.getInstance();
 
     private PRNode            root;
 
@@ -12,7 +12,7 @@ public class PRQuadTree
      */
     public PRQuadTree()
     {
-        root = PRQuadTree.FLYLEAF;
+        root = PRQuadTree.FLYWEIGHT;
     }
 
     /**

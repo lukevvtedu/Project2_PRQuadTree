@@ -1,97 +1,98 @@
-
-
-import org.junit.Before;
-import org.junit.Test;
-
 import student.TestCase;
 
 /**
+ * The default class for reading and running the commands from a text file
  * 
- */
-
-/**
- * @author platt, jondef95
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
  */
 public class PointListTest extends TestCase {
 
     private PointList list;
-    private Point1 point1; 
-    private Point1 Point1; 
-    private Point1 point3;
-    private Point1 point4;
+    private Point1 p1;
+    private Point1 p2;
+    private Point1 p3;
+    private Point1 p4;
+
     /**
      * sets up the information for the tests
      */
     public void setUp() {
         list = new PointList();
-        point1 = new Point1("a", 1, 20);
-        Point1 = new Point1("b", 10, 30);
-        point3 = new Point1("c", 140, 10);
-        point4 = new Point1("d", 200, 200);
+        p1 = new Point1("a", 1, 20);
+        p2 = new Point1("b", 10, 30);
+        p3 = new Point1("c", 140, 10);
+        p4 = new Point1("d", 200, 200);
     }
+
 
     /**
      * tests the insert method
      */
     public void testInsert() {
-        list.insert(point1);
-        list.insert(Point1);
+        list.insert(p1);
+        list.insert(p2);
         assertEquals(2, list.getSize());
     }
-    
+
+
     /**
-     * tests the duplicates method
+     * tests the dupes method
      */
-    public void testOutputDuplicates()
-    {
-        list.insert(point1);
-        list.insert(Point1);
-        list.insert(point1);
-        list.insert(point1);
-        list.outputDuplicates();
+    public void testOutputDupes() {
+        list.insert(p1);
+        list.insert(p2);
+        list.insert(p1);
+        list.insert(p1);
+        list.outputDupes();
         assertTrue(systemOut().getHistory().endsWith("(1, 20)\n"));
     }
-    
+
+
     /**
-     * tests the remove method
+     * tests remove
      */
-    public void testRemove()
-    {
+    public void testRemove() {
         list.remove(null, true);
         list.remove(null, false);
-        list.remove(point1, true);
-        list.remove(point1, false);
+        list.remove(p1, true);
+        list.remove(p1, false);
         assertEquals(0, list.getSize());
-        list.insert(point1);
-        list.insert(Point1);
-        list.insert(point1);
-        list.remove(point1, true);
-        list.remove(Point1, false);
+        list.insert(p1);
+        list.insert(p2);
+        list.insert(p1);
+        list.remove(p1, true);
+        list.remove(p2, false);
         assertEquals(1, list.getSize());
     }
+
+
     /**
-     * tests more of the remove method
+     * tests remove again
      */
-    public void testRemove2()
-    {
-        list.insert(point1);
-        assertNull(list.remove(Point1, true));
-        Point1 Point1diffName = new Point1("a", 10, 30);
-        list.insert(Point1diffName);
-        list.insert(Point1);
-        assertEquals(Point1, list.remove(Point1, true));
-        list.insert(point1);
-        list.insert(point3);
-        list.insert(point4);
-        list.remove(point4, false);
+    public void testRemove2() {
+        list.insert(p1);
+        assertNull(list.remove(p2, true));
+        Point1 p5 = new Point1("a", 10, 30);
+        list.insert(p5);
+        list.insert(p2);
+        assertEquals(p2, list.remove(p2, true));
+        list.insert(p1);
+        list.insert(p3);
+        list.insert(p4);
+        list.remove(p4, false);
         assertEquals(4, list.getSize());
-        
+
     }
-    
+
+
+    /**
+     * tests remove again
+     */
     public void testRemove3() {
-        list.insert(point1);
-        list.remove(Point1, false);
+        list.insert(p1);
+        list.remove(p2, false);
         assertEquals(1, list.getSize());
     }
 }

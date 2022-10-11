@@ -1,29 +1,32 @@
 import student.TestCase;
 
 /**
- * tests the methods in the database
- * @author Jonathan DeFreeuw (jondef95) Preston Lattimer (platt)
- * @version 1
+ * test case for the point storage
+ * 
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
  */
 public class PointStorageTest  extends TestCase
 {
-    private PointStorage base;
+    private PointStorage p1;
+
 
     /**
-     * creates the database used in testing
+     * sets up the test case
      */
     public void setUp()
     {
-        base = new PointStorage();
+        p1 = new PointStorage();
     }
 
     /**
-     * tests basic methods
+     * tests the methods in the storage class
      */
     public void test()
     {
-        base.regionSearch(null);
-        assertNull(base.removeKey("hello"));
+        p1.regionSearch(null);
+        assertNull(p1.removeKey("a"));
     }
 
 }

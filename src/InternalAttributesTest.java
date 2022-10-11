@@ -16,7 +16,7 @@ public class InternalAttributesTest extends TestCase {
      */
     public void setUp() {
         n1 = new InternalAttributes();
-        leaf = PRQuadTree.FLYLEAF;
+        leaf = PRQuadTree.FLYWEIGHT;
     } 
     
     /**
@@ -38,7 +38,7 @@ public class InternalAttributesTest extends TestCase {
      */
     public void testAdjustTree()
     {
-        assertSame(n1.adjustTree(0, 0, 10), PRQuadTree.FLYLEAF);
+        assertSame(n1.adjustTree(0, 0, 10), PRQuadTree.FLYWEIGHT);
         PRQuadTree pr1 = new PRQuadTree();
         Point1 p2 = new Point1("a", 1023, 1);
         pr1.insert(p2);

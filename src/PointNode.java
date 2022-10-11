@@ -1,72 +1,64 @@
 /**
+ * The default class for reading and running the commands from a text file
  * 
- * nodes to build a linked list of points
- * 
- * @author Jonathan DeFreeuw (jondef95) Preston Lattimer (platt)
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
  */
-public class PointNode
-{
-    /**
-     * next node in the list
-     */
+public class PointNode {
+
     private PointNode next;
-    /**
-     * point data contained in the node
-     */
-    private Point1    data;
+    private Point1 data;
 
     /**
-     * creates a node that contains data and no next node
+     * Default constructor for pointnode
      * 
-     * @param newValue
-     *            the value stored in the node
+     * @param p
      */
-    public PointNode(Point1 newValue)
-    {
-        data = newValue;
+    public PointNode(Point1 p) {
+        data = p;
         next = null;
     }
 
-    /**
-     * sets the value of the next node
-     * 
-     * @param newNext
-     *            the node next to this one
-     */
-    public void setNext(PointNode newNext)
-    {
-        next = newNext;
-    }
 
     /**
-     * get the next node
+     * sets the next node
      * 
-     * @return the node next to this one
+     * @param pn
+     *            next node
      */
-    public PointNode getNext()
-    {
+    public void setNext(PointNode pn) {
+        next = pn;
+    }
+
+
+    /**
+     * gets the next node
+     * 
+     * @return next node
+     */
+    public PointNode getNext() {
         return next;
     }
 
-    /**
-     * sets the value of the node
-     * 
-     * @param newData
-     *            data to be stored in the node
-     */
-    public void setData(Point1 newData)
-    {
-        data = newData;
-    }
 
     /**
-     * returns the private KVPair stored in the node
+     * sets the next data for the node
      * 
-     * @return the pair in the node
+     * @param pd
+     *            data for node
      */
-    public Point1 getData()
-    {
+    public void setData(Point1 pd) {
+        data = pd;
+    }
+
+
+    /**
+     * gets the data of the node
+     * 
+     * @return data of ndoe
+     */
+    public Point1 getData() {
         return data;
     }
 }

@@ -4,179 +4,156 @@
  * @author oehlingr19 and lukev
  * @version 1
  */
-public class PointList
-{
-    /**
-     * pointer to the first node in the list
-     */
-    private PointNode head;
-    /**
-     * number of DIFFERENT Points in the list. Example: 4,2->2,4->4,2->0,5 has
-     * size 3
-     */
-    private int        size;
-
-    private int        numUnique;
-
-    private boolean    duplicates;
+public class PointList {
+    
+    private PointNode point;
+    private int size;
+    private int unique;
+    private boolean dupe;
 
     /**
      * default constructor for the LinkedList
      */
-    public PointList()
-    {
-        head = null;
+    public PointList() {
+        point = null;
         size = 0;
-        numUnique = 0;
-        duplicates = true;
+        unique = 0;
+        dupe = true;
     }
+
 
     /**
      * creates a LinkedList based on a single node
      * 
-     * @param startPoint
+     * @param p1
      *            the data that will start the list
      */
-    public PointList(Point1 startPoint)
-    {
-        head = new PointNode(startPoint);
+    public PointList(Point1 p1) {
+        point = new PointNode(p1);
         size = 1;
-        numUnique = 1;
-        duplicates = true;
+        unique = 1;
+        dupe = true;
     }
 
+
     /**
-     * removes the head from the list, and replaces the head with the next node
+     * removes the point from the list, and replaces the point with the next node
      * 
-     * @return the data stored in the head of the node
+     * @return the data stored in the point of the node
      */
-    public Point1 removeHead()
-    {
-        if (head.getNext() != null)
-        {
-            Point1 temp = head.getData();
-            head = head.getNext();
-            return temp;
+    public Point1 removeHead() {
+        if (point.getNext() != null) {
+            Point1 p2 = point.getData();
+            point = point.getNext();
+            return p2;
         }
-        else
-        {
-            Point1 output = head.getData();
-            head = null;
-            return output;
+        else {
+            Point1 out = point.getData();
+            point = null;
+            return out;
         }
     }
+
 
     /**
      * inserts a specific Point into the list; inserts at the end so that it can
-     * be determined if there are any duplicates in the list; sorted by
+     * be determined if there are any dupe in the list; sorted by
      * coordinate in ascending order, first by x coordinate, then by y
      * coordinate
      * 
      * @param newPoint
      *            the Point that will be added to the node
      */
-    public void insert(Point1 newPoint)
-    {
-        PointNode newNode = new PointNode(newPoint);
-        if (head == null)
-        {
-            head = newNode;
-            numUnique++;
+    public void insert(Point1 newPoint) {
+        PointNode n1 = new PointNode(newPoint);
+        if (point == null) {
+            point = n1;
+            unique++;
             size++;
         }
-        else
-        {
-            PointNode curr = head;
-            while (curr.getNext() != null)
-            {
-                if (!curr.getData().equals(newPoint))
-                    duplicates = false;
-                if (newPoint.compareTo(curr.getData()) >= 0)
-                {
-                    newNode.setNext(curr.getNext());
-                    curr.setNext(newNode);
+        else {
+            PointNode p3 = point;
+            while (p3.getNext() != null) {
+                if (!p3.getData().equals(newPoint))
+                    dupe = false;
+                if (newPoint.compareTo(p3.getData()) >= 0) {
+                    n1.setNext(p3.getNext());
+                    p3.setNext(n1);
                     size++;
                     return;
                 }
-                curr = (curr.getNext());
+                p3 = (p3.getNext());
             }
-            curr.setNext(newNode);
+            p3.setNext(n1);
             size++;
         }
     }
 
+
     /**
-     * This method returns the duplicate points in the linked 
+     * This method returns the duplicate points in the linked
      * list
      */
-    public void outputDuplicates()
-    {
-        PointNode curr = head;
-        String output = "";
-        while (curr.getNext() != null)
-        {
-            if (curr.getData().equals(curr.getNext().getData()))
-            {
-                if (!(output
-                        .contains(curr.getNext().getData().outputCoord())))
-                {
-                    output += curr.getNext().getData().outputCoord();
-                    System.out.println(
-                            curr.getNext().getData().outputCoord());
+    public void outputDupes() {
+        PointNode p3 = point;
+        String out = "";
+        while (p3.getNext() != null) {
+            if (p3.getData().equals(p3.getNext().getData())) {
+                if (!(out.contains(p3.getNext().getData()
+                    .outputCoord()))) {
+                    out += p3.getNext().getData().outputCoord();
+                    System.out.println(p3.getNext().getData().outputCoord());
                 }
             }
-            curr = curr.getNext();
+            p3 = p3.getNext();
         }
     }
 
-    /**
-     * get the pointer to the head of the list
-     * 
-     * @return the head of the list
-     */
-    public PointNode getHead()
-    {
-        return head;
-    }
 
     /**
-     * get the size of the list; size should not include duplicates
+     * get the pointer to the point of the list
      * 
-     * @return size of the list, no duplicates
+     * @return the point of the list
      */
-    public int getSize()
-    {
+    public PointNode getHead() {
+        return point;
+    }
+
+
+    /**
+     * get the size of the list; size should not include dupe
+     * 
+     * @return size of the list, no dupe
+     */
+    public int getSize() {
         return size;
     }
+
 
     /**
      * changes the size of the list depending on whether unique points exist
      */
-    public void resize()
-    {
-        if (head == null)
-        {
+    public void resize() {
+        if (point == null) {
             size = 0;
-            numUnique = 0;
+            unique = 0;
         }
-        else
-        {
-            PointNode curr = head;
-            int newSize = 1;
-            int newUnique = 1;
-            while (curr.getNext() != null)
-            {
-                if (!curr.getData().equals(curr.getNext().getData()))
-                {
-                    newUnique++;
+        else {
+            PointNode p3 = point;
+            int s1 = 1;
+            int u1 = 1;
+            while (p3.getNext() != null) {
+                if (!p3.getData().equals(p3.getNext().getData())) {
+                    u1++;
                 }
-                newSize++;
-                curr = curr.getNext();
+                s1++;
+                p3 = p3.getNext();
             }
-            size = newSize;
-            numUnique = newUnique;
+            size = s1;
+            unique = u1;
         }
     }
+
 
     /**
      * returns whether or not the list contains only a unique point
@@ -184,60 +161,57 @@ public class PointList
      * @return true if there is only one unique set of coordinates in the list,
      *         false otherwise
      */
-    public boolean onlyDuplicates()
-    {
-        return duplicates;
+    public boolean onlyDuplicates() {
+        return dupe;
     }
-    
+
+
     /**
      * @return the number of unique elements in the list
      */
-    public int getUnique()
-    {
-        return numUnique;
+    public int getUnique() {
+        return unique;
     }
+
 
     /**
      * removes a point and checks to see whether it is supposed
      * to be returned by name or by value. if by name will check against
      * other points in the linked list
-     * @param searchPoint the value to be found
-     * @param byName whether to search by name
+     * 
+     * @param ps
+     *            the value to be found
+     * @param name
+     *            whether to search by name
      * @return the point removed
      */
-    public Point1 remove(Point1 searchPoint, boolean byName)
-    {
-        PointNode curr = head;
-        if (curr == null)
+    public Point1 remove(Point1 ps, boolean name) {
+        PointNode p3 = point;
+        if (p3 == null)
             return null;
-        if (curr.getData().equals(searchPoint))
-        {
+        if (p3.getData().equals(ps)) {
             resize();
             return removeHead();
         }
-        while (curr.getNext() != null)
-        {
-            if (curr.getNext().getData().equals(searchPoint))
-            {
-                if (!byName)
-                {
-                    PointNode temp = curr.getNext();
-                    curr.setNext(curr.getNext().getNext());
-                    temp.setNext(null);
+        while (p3.getNext() != null) {
+            if (p3.getNext().getData().equals(ps)) {
+                if (!name) {
+                    PointNode p2 = p3.getNext();
+                    p3.setNext(p3.getNext().getNext());
+                    p2.setNext(null);
                     resize();
-                    return temp.getData();
+                    return p2.getData();
                 }
-                else if (curr.getNext().getData().getName()
-                        .compareTo(searchPoint.getName()) == 0)
-                {
-                    PointNode temp = curr.getNext();
-                    curr.setNext(curr.getNext().getNext());
-                    temp.setNext(null);
+                else if (p3.getNext().getData().getName().compareTo(
+                    ps.getName()) == 0) {
+                    PointNode p2 = p3.getNext();
+                    p3.setNext(p3.getNext().getNext());
+                    p2.setNext(null);
                     resize();
-                    return temp.getData();
+                    return p2.getData();
                 }
             }
-            curr = curr.getNext();
+            p3 = p3.getNext();
         }
         return null;
     }

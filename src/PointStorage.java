@@ -1,114 +1,104 @@
-
 /**
- * Database that will contain the data structures used for a point-region
- * problem
+ * The default class for reading and running the commands from a text file
  * 
- * @author Jonathan DeFreeuw (jondef95) Preston Lattimer (platt)
- * @version 1
+ * @author oehlingr19 and lukev
+ * @version 3
+ *
  */
-public class PointStorage
-{
+public class PointStorage {
+
+    private SkipList<String, Point1> sl;
+    private PRQuadTree pr;
 
     /**
-     * creates the skipList for the database
+     * default constructor for point storage
      */
-    private SkipList<String, Point1> list;
-    /**
-     * declares the quadtree for the database
-     */
-    private PRQuadTree       tree;
-
-    /**
-     * initializes the SkipList and QuadTree for the Database
-     */
-    public PointStorage()
-    {
-        list = new SkipList<String, Point1>();
-        tree = new PRQuadTree();
+    public PointStorage() {
+        sl = new SkipList<String, Point1>();
+        pr = new PRQuadTree();
     }
 
-    /**
-     * insert a KVPair into the data structures of the database
-     * 
-     * @param pair
-     *            is the value to be inserted
-     */
-    public void insert(KVPair<String, Point1> pair)
-    {
-        list.insert(pair);
-        tree.insert(pair.theVal);
-    }
 
     /**
+     * inserts a kv pair object
      * 
-     * remove a value from the database based on the key
-     * 
-     * @param key
-     *            is the key to be searched
-     * @return the value in the SkipList and quadtree
+     * @param kv
+     *            kv object being added
      */
-    public Point1 removeKey(String key)
-    {
-        Point1 output = list.removeKey(key);
-        if (output == null)
+    public void insert(KVPair<String, Point1> kv) {
+        sl.insert(kv);
+        pr.insert(kv.theVal);
+    }
+
+
+    /**
+     * removes the key from the point
+     * 
+     * @param k
+     *            key being removed
+     * @return removed key
+     */
+    public Point1 removeKey(String k) {
+        Point1 out = sl.removeKey(k);
+        if (out == null)
             return null;
-        tree.remove(output, true);
-        return output;
+        pr.remove(out, true);
+        return out;
     }
 
+
     /**
-     * remove a value from the database based on the value
+     * removes value from the point
      * 
-     * @param val
-     *            is the value to be found
-     * @return the value in the SkipList and quadtree
+     * @param e
+     *            value being removed
+     * @return removed value
      */
-    public Point1 removeValue(Point1 val)
-    {
-        Point1 search = tree.remove(val, false);
-        if (search == null)
+    public Point1 removeValue(Point1 e) {
+        Point1 p1 = pr.remove(e, false);
+        if (p1 == null)
             return null;
-        list.removeKey(search.getName());
-        return search;
+        sl.removeKey(p1.getName());
+        return p1;
     }
 
+
     /**
-     * find all duplicate points in the quad tree
+     * finds the duplicates
      */
-    public void duplicates()
-    {
-        tree.duplicates();
+    public void duplicates() {
+        pr.duplicates();
     }
 
+
     /**
-     * outputs the data using the quad tree
+     * dumps the data found
      */
-    public void dump()
-    {
-        list.dump();
-        tree.dump();
+    public void dump() {
+        sl.dump();
+        pr.dump();
     }
 
+
     /**
-     * searches for a specific key value
+     * searches for the specific node
      * 
-     * @param key
-     *            the key that is being searched for
-     * @return the node in the SkipList that contains that specific key
+     * @param k
+     *            key being searched
+     * @return searched pair
      */
-    public SkipNode<String, Point1> search(String key)
-    {
-        return list.search(key);
+    public SkipNode<String, Point1> search(String k) {
+        return sl.search(k);
     }
 
+
     /**
-     * find all points within a specific region in the quadtree
+     * searches a region for rectangles
      * 
-     * @param region
-     *            the region that is being used to search for points in the
-     *            quadtree
+     * @param r
+     *            rectangle being searched
      */
-    public void regionSearch(Rectangle region)
-    {
+    public void regionSearch(Rectangle r) {
+        // left blank intentionally
     }
 }

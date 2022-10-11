@@ -61,7 +61,7 @@ public class Leaf implements PRNode {
             return base;
         }
         else if (pl.getSize() == 0) {
-            return PRQuadTree.FLYLEAF;
+            return PRQuadTree.FLYWEIGHT;
         }
         else {
             pl.resize();
@@ -93,7 +93,7 @@ public class Leaf implements PRNode {
      */
     @Override
     public void duplicates() {
-        pl.outputDuplicates();
+        pl.outputDupes();
     }
 
 

@@ -15,7 +15,7 @@ public class LeafTest extends TestCase {
      * sets up the test
      */
     public void setUp() {
-        leaf = PRQuadTree.FLYLEAF;
+        leaf = PRQuadTree.FLYWEIGHT;
     }
 
 
